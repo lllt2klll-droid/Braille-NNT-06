@@ -22,16 +22,18 @@
   background: #E5E8F0;
   display:grid; place-items:center;
   cursor:pointer;
-  touch-action: manipulation;
+  touch-action: none;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
   transition: transform 120ms ease-out, background 120ms ease-out, border-color 120ms ease-out, box-shadow 120ms ease-out;
 }
 @media (max-width: 767px) {
   .braille-dot { width: 52px; height: 52px; }
   .braille-grid { gap: 14px; }
 }
+.braille-grid { touch-action: none; }
 /* tăng vùng chạm ảo để tròn không bị hụt góc */
 .braille-dot::before {
   content: "";

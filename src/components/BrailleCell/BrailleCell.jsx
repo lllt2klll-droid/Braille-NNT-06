@@ -8,14 +8,25 @@ export default function BrailleCell({ dots=[], size='medium', interactive=false,
     { n:2 }, { n:5 },
     { n:3 }, { n:6 },
   ];
+  // tránh double toggle giữa pointer và click tổng hợp
+  const lastPointerRef = { current: 0 };
   const handlePointerDown = (e, n) => {
     if (!interactive) return;
-    // chỉ xử lý chuột trái / touch chính
     if (e.button !== undefined && e.button !== 0) return;
     e.preventDefault();
-    // ngăn click tổng hợp sau pointer (tránh double toggle)
+    try { e.currentTarget.setPointerCapture?.(e.pointerId); } catch {}
+    lastPointerRef.current = Date.now();
     if (onToggle) onToggle(n);
     if (navigator.vibrate) try { navigator.vibrate(10); } catch {}
+  };
+  const handleClick = (e, n) => {
+    if (!interactive) return;
+    // nếu vừa xử lý pointer (mobile) thì bỏ qua click tổng hợp
+    if (Date.now() - lastPointerRef.current < 500) {
+      e.preventDefault();
+      return;
+    }
+    if (onToggle) onToggle(n);
   };
 
   return (
@@ -32,6 +43,7 @@ export default function BrailleCell({ dots=[], size='medium', interactive=false,
               aria-label={`Chấm ${p.n}${active ? ' đang bật' : ''}`}
               disabled={!interactive}
               onPointerDown={e=> handlePointerDown(e, p.n)}
+              onClick={e=> handleClick(e, p.n)}
               onKeyDown={e=> {
                 if (!interactive) return;
                 if (e.key==='Enter' || e.key===' ') { e.preventDefault(); if (onToggle) onToggle(p.n); }
