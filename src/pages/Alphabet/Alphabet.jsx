@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { allEntries } from '../../data/vietnameseBraille.js';
 import Modal from '../../components/Modal/Modal.jsx';
+import BrailleCell from '../../components/BrailleCell/BrailleCell.jsx';
 import './Alphabet.css';
 
 const FILTERS = [
@@ -54,6 +55,9 @@ export default function Alphabet(){
             <div className="alpha-braille-box">
               <span className="alpha-braille">{e.braille}</span>
             </div>
+            <div style={{display:'flex', justifyContent:'center', marginTop:8}}>
+              <BrailleCell dots={e.dots} size="small" showNumbers={false} />
+            </div>
             <div className="alpha-char">{e.character}</div>
             <div className="alpha-label">{e.label}</div>
             <div className="alpha-dots">{e.dots.length ? `Chấm ${e.dots.join(' · ')}` : '—'}</div>
@@ -64,8 +68,9 @@ export default function Alphabet(){
 
       <Modal open={!!selected} onClose={()=> setSelected(null)} title={selected?.label}>
         {selected && (
-          <div style={{textAlign:'center', display:'flex', flexDirection:'column', gap:12, alignItems:'center'}}>
-            <div style={{fontSize:56}}>{selected.braille}</div>
+          <div style={{textAlign:'center', display:'flex', flexDirection:'column', gap:14, alignItems:'center'}}>
+            <div style={{fontSize:56, fontFamily:'var(--font-braille)'}}>{selected.braille}</div>
+            <BrailleCell dots={selected.dots} size="large" showNumbers />
             <div style={{fontSize:20, fontWeight:800}}>{selected.character}</div>
             <div className="badge badge-primary">{selected.type}</div>
             <div className="muted">Chấm: {selected.dots.length ? selected.dots.join(' - ') : '—'}</div>

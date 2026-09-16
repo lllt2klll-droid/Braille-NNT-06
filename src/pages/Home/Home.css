@@ -1,8 +1,8 @@
 .hero { text-align:center; padding: 36px 0 20px; position: relative; }
 .hero-illus { display:flex; justify-content:center; align-items:center; gap:12px; margin-bottom:12px; }
 .illus-dots { display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:12px; background: var(--color-surface); border:1px solid var(--color-border); border-radius:18px; box-shadow: var(--shadow-sm); }
-.idot { width:18px; height:18px; border-radius:50%; background:#E5E8F0; display:block; transition: all var(--transition-normal) ease-out; }
-.idot.active { background: var(--color-primary); box-shadow: 0 4px 10px rgba(91,103,241,0.24); transform: scale(1.04); }
+.idot { width:18px; height:18px; border-radius:50%; background: rgba(229,232,240,0.1); border: 1px solid rgba(231,234,242,0.55); display:block; transition: all var(--transition-normal) ease-out; }
+.idot.active { background: var(--color-primary); border-color: var(--color-primary); box-shadow: 0 4px 10px rgba(91,103,241,0.24); transform: scale(1.04); opacity: 1; }
 .illus-braille { font-size: 28px; color: var(--color-primary); font-weight:700; }
 .hero-badge { display:inline-flex; padding:6px 12px; border-radius:999px; background: var(--color-primary-soft); color: var(--color-primary); font-weight:700; font-size:13px; border:1px solid transparent; }
 .hero-title { font-size: clamp(28px, 5vw, 40px); font-weight: 700; letter-spacing:-0.02em; line-height:1.15; margin:14px 0 10px; }
