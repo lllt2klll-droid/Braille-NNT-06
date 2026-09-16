@@ -18,6 +18,8 @@
   transition: transform var(--transition-fast) ease-out, background var(--transition-fast) ease-out, border-color var(--transition-fast) ease-out, box-shadow var(--transition-fast) ease-out, opacity var(--transition-fast) ease-out;
   user-select: none;
   white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .btn:active { transform: scale(0.98) translateY(1px); }
 .btn:hover { transform: translateY(-1px); }
@@ -89,7 +91,7 @@
 .input, .textarea, .select {
   width: 100%;
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--color-text);
   background: var(--color-surface);
@@ -99,6 +101,9 @@
   height: 50px;
   outline: none;
   transition: border-color var(--transition-fast) ease-out, box-shadow var(--transition-fast) ease-out, background var(--transition-fast) ease-out;
+}
+@media (max-width: 767px) {
+  .input, .textarea, .select { font-size: 16px; }
 }
 .textarea { height: auto; min-height: 120px; border-radius: 16px; padding: 16px; line-height: 1.6; resize: vertical; }
 .input::placeholder, .textarea::placeholder { color: var(--color-text-faint); }

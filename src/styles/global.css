@@ -4,10 +4,11 @@
 @import "./accessibility.css";
 @import "./animations.css";
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html { scroll-behavior: smooth; }
 html, body { margin: 0; padding: 0; }
 html { font-family: var(--font-sans); }
+button, a { touch-action: manipulation; }
 body {
   font-family: var(--font-sans);
   background: var(--color-background);

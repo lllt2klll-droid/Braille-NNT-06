@@ -3,25 +3,41 @@
   display:grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(3,1fr);
-  gap: 10px;
+  gap: 12px;
   padding: 16px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 20px;
   box-shadow: var(--shadow-sm);
+  touch-action: manipulation;
 }
-.braille-cell--small .braille-grid { gap:6px; padding:10px; }
-.braille-cell--large .braille-grid { gap:14px; padding:20px; }
+.braille-cell--small .braille-grid { gap:8px; padding:12px; }
+.braille-cell--large .braille-grid { gap:16px; padding:20px; }
 
 .braille-dot {
   position: relative;
-  width: 44px; height: 44px;
+  width: 48px; height: 48px;
   border-radius: 50%;
-  border: 1px solid var(--color-border);
+  border: 1.5px solid var(--color-border);
   background: #E5E8F0;
   display:grid; place-items:center;
   cursor:pointer;
-  transition: transform var(--transition-fast) ease-out, background var(--transition-fast) ease-out, border-color var(--transition-fast) ease-out, box-shadow var(--transition-fast) ease-out, opacity var(--transition-fast) ease-out;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: transform 120ms ease-out, background 120ms ease-out, border-color 120ms ease-out, box-shadow 120ms ease-out;
+}
+@media (max-width: 767px) {
+  .braille-dot { width: 52px; height: 52px; }
+  .braille-grid { gap: 14px; }
+}
+/* tăng vùng chạm ảo để tròn không bị hụt góc */
+.braille-dot::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
 }
 [data-theme="dark"] .braille-dot { background: #2E344A; border-color: var(--color-border); }
 .braille-dot:not(.active) {
@@ -42,18 +58,19 @@
   box-shadow: 0 4px 10px rgba(91,103,241,0.24);
   transform: scale(1.04);
 }
-.braille-dot:active:not(:disabled) { transform: scale(0.98); }
-.braille-dot:focus-visible { outline:3px solid var(--color-primary); outline-offset:2px; }
+.braille-dot:active:not(:disabled) { transform: scale(0.96); }
+.braille-dot:focus-visible { outline:3px solid var(--color-primary); outline-offset:3px; }
 .dot-inner {
-  width: 16px; height: 16px;
+  width: 18px; height: 18px;
   border-radius:50%;
   background: transparent;
-  transition: background var(--transition-fast) ease-out, transform var(--transition-fast) ease-out;
+  pointer-events: none;
+  transition: background 120ms ease-out, transform 120ms ease-out;
 }
 .braille-dot.active .dot-inner { background: white; transform: scale(1.02); }
 .dot-number {
-  position:absolute; bottom:-15px; font-size:10px; font-weight:700; color: var(--color-text-secondary);
+  position:absolute; bottom:-15px; font-size:11px; font-weight:800; color: var(--color-text-secondary);
+  pointer-events: none;
 }
-.braille-label { font-weight:700; font-size:13px; color: var(--color-text-secondary); text-align:center; }
-@media(min-width:768px){ .braille-dot{ width:40px; height:40px; } .dot-inner{ width:16px; height:16px; } }
-@media(max-width:767px){ .braille-dot{ width:44px; height:44px; } }
+.braille-label { font-weight:700; font-size:13px; color: var(--color-text-secondary); text-align:center; min-height:18px; }
+@media(min-width:768px){ .braille-dot{ width:44px; height:44px; } .dot-inner{ width:16px; height:16px; } }
