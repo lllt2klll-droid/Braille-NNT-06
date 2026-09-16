@@ -89,18 +89,31 @@ export default function Practice(){
         </>
       ) : (
         <div className="typing-layout">
-          <div className="card card-padded">
-            <div className="section-title">Hãy nhập: "{typingTarget}"</div>
-            <div className="small muted">Braille mong đợi: <span className="braille-text">{vietnameseToBraille(typingTarget)}</span></div>
-            <div className="braille-text" style={{minHeight:48, marginTop:12, padding:12, background:'var(--color-surface-2)', borderRadius:12, border:'1px solid var(--color-border)'}}>{typingInput || <span className="muted">—</span>}</div>
-            {typingFeedback && <div className={`quiz-feedback ${typingFeedback.ok?'ok':'bad'}`} style={{marginTop:10}}>{typingFeedback.ok ? '✓ Chính xác!' : `✕ Chưa đúng. Đáp án: ${typingFeedback.expected}`}</div>}
-            <div style={{display:'flex', gap:8, marginTop:12, justifyContent:'center'}}>
+          <div className="card card-padded typing-prompt-card">
+            <div className="section-title" style={{marginBottom:4}}>Hãy nhập: “{typingTarget}”</div>
+            <div className="typing-label">Braille mong đợi</div>
+            <div className="typing-expected-box">
+              <span className="typing-expected-braille">{vietnameseToBraille(typingTarget)}</span>
+              <span className="small muted" style={{fontWeight:700}}>{typingTarget}</span>
+            </div>
+
+            <div className="typing-label" style={{marginTop:14}}>Kết quả của bạn <span className="muted" style={{textTransform:'none', letterSpacing:0}}>{typingInput.length}/{vietnameseToBraille(typingTarget).length} ô</span></div>
+            <div className={`typing-input-box ${typingInput ? 'has-content' : ''}`}>
+              {typingInput
+                ? <span className="typing-input-braille">{typingInput}</span>
+                : <span className="typing-empty">— chưa nhập —</span>}
+            </div>
+
+            {typingFeedback && <div className={`quiz-feedback ${typingFeedback.ok?'ok':'bad'}`} style={{marginTop:12}}>{typingFeedback.ok ? '✓ Chính xác!' : `✕ Chưa đúng. Đáp án: ${typingFeedback.expected}`}</div>}
+
+            <div style={{display:'flex', gap:8, marginTop:14, justifyContent:'center'}}>
               <button className="btn btn-secondary" onClick={()=> { setTypingInput(''); setTypingFeedback(null); }}>Xóa</button>
               <button className="btn btn-primary" onClick={checkTyping}>Kiểm tra</button>
             </div>
+            <div className="small muted" style={{textAlign:'center', marginTop:8}}>Gõ bằng bàn phím 6 chấm bên phải, bấm <b>Gửi</b> sau mỗi ô Braille</div>
           </div>
           <div className="card card-padded">
-            <BrailleKeyboard onSend={handleTypingSend} />
+            <BrailleKeyboard onSend={handleTypingSend} hideHistory />
           </div>
         </div>
       )}

@@ -5,7 +5,7 @@ import { getDotForKey } from '../../utils/keyboardMapper.js';
 import { storage } from '../../utils/storage.js';
 import './BrailleKeyboard.css';
 
-export default function BrailleKeyboard({ onSend, onBrailleChange }){
+export default function BrailleKeyboard({ onSend, onBrailleChange, hideHistory=false }){
   const [dots, setDots] = useState([]);
   const [history, setHistory] = useState(()=> storage.get('kb_history', []));
   const keyMap = storage.get('keyboardMapping', null) || undefined;
@@ -84,10 +84,12 @@ export default function BrailleKeyboard({ onSend, onBrailleChange }){
     <div className="bk-root">
       <div className="bk-card">
         <BrailleCell dots={dots} size="large" interactive showNumbers={storage.get('showDotNumbers', true)} onToggle={toggle} showLabel={`${brailleChar}  •  chấm ${dots.join('-') || 'trống'}`} />
-        <div className="bk-preview braille-autofit">
-          <div className="braille-text" aria-live="polite" style={{whiteSpace:'nowrap'}}>{history.join(' ') || '— chưa có ký tự —'}</div>
-          <div className="small muted" style={{marginTop:4}}>{history.length} ký tự</div>
-        </div>
+        {!hideHistory && (
+          <div className="bk-preview braille-autofit">
+            <div className="braille-text" aria-live="polite" style={{whiteSpace:'nowrap'}}>{history.join(' ') || '— chưa có ký tự —'}</div>
+            <div className="small muted" style={{marginTop:4}}>{history.length} ký tự</div>
+          </div>
+        )}
         <div className="bk-actions">
           <button className="btn btn-secondary" onClick={handleClearDots} aria-label="Xóa chấm">Xóa</button>
           <button className="btn btn-secondary" onClick={handleBackspace} aria-label="Xóa ký tự cuối">⌫ Xóa ký tự</button>

@@ -39,19 +39,24 @@ export default function Alphabet(){
         <input className="input" placeholder="Tìm chữ, ký hiệu hoặc dấu… ví dụ: ơ, ⠪, chấm 1" value={q} onChange={e=> setQ(e.target.value)} aria-label="Tìm kiếm" style={{maxWidth:420}} />
         <div className="filter-row">
           {FILTERS.map(f=>(
-            <button key={f.key} className={`btn btn-sm ${filter===f.key ? 'btn-primary':'btn-secondary'}`} onClick={()=> setFilter(f.key)}>{f.label}</button>
+            <button key={f.key} className={`btn btn-sm ${filter===f.key ? 'btn-soft':'btn-secondary'}`} onClick={()=> setFilter(f.key)}>{f.label}</button>
           ))}
         </div>
       </div>
 
       <div className="alphabet-grid" style={{marginTop:16}}>
         {filtered.map(e=>(
-          <button key={e.character+e.braille+e.type} className="card card-hover alphabet-card" onClick={()=> setSelected(e)} aria-label={`${e.label} ${e.braille}`}>
-            <div className="alpha-braille">{e.braille}</div>
+          <button key={e.character+e.braille+e.type} className="alphabet-card" onClick={()=> setSelected(e)} aria-label={`${e.label} ${e.braille} chấm ${e.dots.join('-')}`}>
+            <div className="alpha-top">
+              <span className={`alpha-type ${e.type}`}>{e.type==='letter'?'chữ': e.type==='vowel'?'nguyên âm': e.type==='tone'?'dấu': e.type==='digit'?'số': e.type}</span>
+              {!e.verified ? <span className="alpha-unverified">UNVERIFIED</span> : <span style={{width:8}} />}
+            </div>
+            <div className="alpha-braille-box">
+              <span className="alpha-braille">{e.braille}</span>
+            </div>
             <div className="alpha-char">{e.character}</div>
-            <div className="alpha-dots">{e.dots.length ? `Chấm ${e.dots.join('-')}` : '—'}</div>
-            <div className="alpha-label small muted">{e.label}</div>
-            {!e.verified && <span className="badge" style={{marginTop:6}}>UNVERIFIED</span>}
+            <div className="alpha-label">{e.label}</div>
+            <div className="alpha-dots">{e.dots.length ? `Chấm ${e.dots.join(' · ')}` : '—'}</div>
           </button>
         ))}
       </div>

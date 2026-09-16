@@ -1,5 +1,50 @@
-.typing-layout { display:grid; gap:16px; }
+.typing-layout { display:grid; gap:16px; align-items:start; }
 @media(min-width:1024px){ .typing-layout{ grid-template-columns: 420px 1fr; } }
-.quiz-card { border-radius:20px; }
+
+/* Khung luyện gõ — rõ ràng, thân thiện, không gây nhầm */
+.typing-prompt-card { border-radius: 20px; }
+.typing-label { font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-text-secondary); margin-bottom: 8px; }
+.typing-expected-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: var(--color-primary-soft);
+  border: 1px solid rgba(91,103,241,0.12);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+[data-theme="dark"] .typing-expected-box { background: #23284A; border-color: rgba(91,103,241,0.16); }
+.typing-expected-braille {
+  font-family: var(--font-braille);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: 0.08em;
+  line-height: 1;
+}
+.typing-input-box {
+  min-height: 72px;
+  margin-top: 12px;
+  padding: 16px;
+  background: var(--color-surface);
+  border: 1.5px solid var(--color-border);
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast) ease-out, box-shadow var(--transition-fast) ease-out;
+}
+.typing-input-box.has-content { border-color: var(--color-primary-soft); background: var(--color-surface-2); }
+.typing-input-braille {
+  font-family: var(--font-braille);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.08em;
+  word-break: break-all;
+  text-align: center;
+}
+.typing-empty { color: var(--color-text-faint); font-weight: 600; font-size: 14px; }
 .quiz-success { background: var(--color-success-bg); border-color: rgba(66,184,131,0.22); color: var(--color-success); }
 .quiz-error { background: var(--color-error-bg); border-color: rgba(233,107,122,0.18); color: var(--color-error); }
