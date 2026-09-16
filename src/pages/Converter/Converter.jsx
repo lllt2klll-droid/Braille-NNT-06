@@ -3,6 +3,7 @@ import { vietnameseToBraille } from '../../utils/vietnameseToBraille.js';
 import { brailleToVietnamese } from '../../utils/brailleToVietnamese.js';
 import { storage } from '../../utils/storage.js';
 import Icon from '../../components/Icon/Icon.jsx';
+import Expand from '../../components/Expand/Expand.jsx';
 import './Converter.css';
 
 export default function Converter(){
@@ -103,19 +104,20 @@ export default function Converter(){
       </div>
 
       {history.length>0 && (
-        <div className="card card-padded" style={{marginTop:16}}>
-          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:8}}>
-            <h3 style={{margin:0}}>Lịch sử (10 gần nhất)</h3>
-            <button className="btn btn-ghost btn-sm" onClick={()=> { setHistory([]); storage.set('converterHistory', []); }}>Xóa lịch sử</button>
-          </div>
-          <div style={{display:'flex', flexDirection:'column', gap:8}}>
-            {history.map((h,i)=>(
-              <div key={i} className="history-item">
-                <div className="small" style={{fontWeight:700}}>{h.vi.slice(0,80)}</div>
-                <div className="braille-text" style={{fontSize:16}}>{h.br.slice(0,80)}</div>
-              </div>
-            ))}
-          </div>
+        <div style={{marginTop:16}}>
+          <Expand title="Lịch sử" subtitle="10 gần nhất — bấm để mở" defaultOpen={false}>
+            <div style={{display:'flex', justifyContent:'flex-end', marginBottom:8}}>
+              <button className="btn btn-ghost btn-sm" onClick={()=> { setHistory([]); storage.set('converterHistory', []); }}><Icon name="trash" size={14}/> Xóa lịch sử</button>
+            </div>
+            <div style={{display:'flex', flexDirection:'column', gap:8}}>
+              {history.map((h,i)=>(
+                <div key={i} className="history-item">
+                  <div className="small" style={{fontWeight:700}}>{h.vi.slice(0,80)}</div>
+                  <div className="braille-text" style={{fontSize:16}}>{h.br.slice(0,80)}</div>
+                </div>
+              ))}
+            </div>
+          </Expand>
         </div>
       )}
 

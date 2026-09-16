@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { storage } from '../../utils/storage.js';
 import Icon from '../../components/Icon/Icon.jsx';
+import Expand from '../../components/Expand/Expand.jsx';
 import './Home.css';
 
 export default function Home(){
@@ -59,20 +60,22 @@ export default function Home(){
         <Link to="/help" className="btn btn-soft btn-sm" style={{marginLeft:'auto'}}><Icon name="help" size={14}/> Xem</Link>
       </section>
 
-      <section className="info-grid grid-3" style={{marginTop:20}}>
-        <div className="card card-padded">
-          <h3 style={{marginTop:0}}>Braille là gì?</h3>
-          <p className="muted small" style={{marginBottom:0}}>Hệ thống 6 chấm nổi giúp người khiếm thị đọc bằng tay. Mỗi ô 6 chấm tạo nên một ký tự — chữ, số hoặc dấu câu.</p>
+      <Expand title="Tìm hiểu nhanh" subtitle="Braille • Dấu thanh • Bàn phím 6 chấm" subtle defaultOpen={false}>
+        <div className="info-grid grid-3">
+          <div className="card card-padded">
+            <h3 style={{marginTop:0}}>Braille là gì?</h3>
+            <p className="muted small" style={{marginBottom:0}}>Hệ thống 6 chấm nổi giúp người khiếm thị đọc bằng tay. Mỗi ô 6 chấm tạo nên một ký tự — chữ, số hoặc dấu câu.</p>
+          </div>
+          <div className="card card-padded">
+            <h3 style={{marginTop:0}}>Dấu thanh</h3>
+            <p className="muted small" style={{marginBottom:0}}>Tiếng Việt đặt ký hiệu dấu trước nguyên âm: <code>⠄</code> sắc, <code>⠂</code> huyền... Không gộp chung vào chữ.</p>
+          </div>
+          <div className="card card-padded">
+            <h3 style={{marginTop:0}}>Bàn phím 6 chấm</h3>
+            <p className="muted small" style={{marginBottom:0}}>Chạm 6 nút hoặc dùng phím <b>D S A J K L</b>. Nhấn Gửi để tạo ký tự Braille.</p>
+          </div>
         </div>
-        <div className="card card-padded">
-          <h3 style={{marginTop:0}}>Dấu thanh</h3>
-          <p className="muted small" style={{marginBottom:0}}>Tiếng Việt đặt ký hiệu dấu trước nguyên âm: <code>⠄</code> sắc, <code>⠂</code> huyền... Không gộp chung vào chữ.</p>
-        </div>
-        <div className="card card-padded">
-          <h3 style={{marginTop:0}}>Bàn phím 6 chấm</h3>
-          <p className="muted small" style={{marginBottom:0}}>Chạm 6 nút hoặc dùng phím <b>D S A J K L</b>. Nhấn Gửi để tạo ký tự Braille.</p>
-        </div>
-      </section>
+      </Expand>
     </div>
   );
 }

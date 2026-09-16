@@ -21,6 +21,8 @@ export function Icon({ name, size=20, stroke=2, ...props }) {
     case "moon": return <svg {...common} viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
     case "menu": return <svg {...common} viewBox="0 0 24 24"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h16"/></svg>;
     case "braille": return <svg {...common} viewBox="0 0 24 24"><circle cx="8" cy="6" r="1.8" fill="currentColor" stroke="none"/><circle cx="16" cy="6" r="1.8" fill="currentColor" stroke="none" opacity="0.35"/><circle cx="8" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="16" cy="12" r="1.8" fill="currentColor" stroke="none"/><circle cx="8" cy="18" r="1.8" fill="currentColor" stroke="none" opacity="0.35"/><circle cx="16" cy="18" r="1.8" fill="currentColor" stroke="none" opacity="0.35"/></svg>;
+    case "chevron": return <svg {...common} viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>;
+    case "info": return <svg {...common} viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>;
     default: return null;
   }
 }

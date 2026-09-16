@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { storage } from '../../utils/storage.js';
 import { validateBrailleData } from '../../utils/validateBrailleData.js';
+import Expand from '../../components/Expand/Expand.jsx';
 import './Settings.css';
 
 export default function Settings(){
@@ -96,11 +97,12 @@ export default function Settings(){
         </div>
       </div>
 
-      <div className="card card-padded" style={{marginTop:16}}>
-        <h3>Kiểm tra dữ liệu Braille</h3>
-        {validation.valid ? <div className="badge badge-success">✓ Dữ liệu hợp lệ</div> : <div className="badge" style={{background:'#FEF2F2', color:'#DC2626'}}>Có {validation.issues.length} vấn đề</div>}
-        {!validation.valid && <ul className="small" style={{marginTop:8}}>{validation.issues.map((iss,i)=> <li key={i}>{iss}</li>)}</ul>}
-        <p className="small muted" style={{marginTop:8}}>Các mục UNVERIFIED (dấu thanh, một số dấu câu) cần đối chiếu chuẩn in nổi Việt Nam chính thức — có thể cập nhật tại <code>src/data/vietnameseBraille.js</code>.</p>
+      <div style={{marginTop:16}}>
+        <Expand title="Kiểm tra dữ liệu Braille" subtitle={validation.valid ? "Dữ liệu hợp lệ" : `${validation.issues.length} vấn đề`} defaultOpen={false}>
+          {validation.valid ? <div className="badge badge-success">✓ Dữ liệu hợp lệ</div> : <div className="badge" style={{background:'#FEF2F2', color:'#DC2626'}}>Có {validation.issues.length} vấn đề</div>}
+          {!validation.valid && <ul className="small" style={{marginTop:8}}>{validation.issues.map((iss,i)=> <li key={i}>{iss}</li>)}</ul>}
+          <p className="small muted" style={{marginTop:8}}>Các mục UNVERIFIED (dấu thanh, một số dấu câu) cần đối chiếu chuẩn in nổi Việt Nam chính thức — có thể cập nhật tại <code>src/data/vietnameseBraille.js</code>.</p>
+        </Expand>
       </div>
       {toast && <div className="toast">{toast}</div>}
     </div>
