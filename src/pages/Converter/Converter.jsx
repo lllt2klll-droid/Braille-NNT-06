@@ -84,8 +84,8 @@ export default function Converter(){
 
           <div className="card card-padded conv-card" style={{borderRadius:18}}>
             <label className="input-label">{mode==='vi2br' ? 'Chữ nổi Braille' : 'Tiếng Việt'}</label>
-            <div className={`conv-output braille-autofit ${mode==='vi2br' ? 'braille-text':''}`} aria-live="polite" style={{fontSize: mode==='vi2br' ? undefined : '16px', fontWeight: mode==='vi2br'?500:600}}>
-              {output || <span className="muted">Chưa có nội dung — Nhập văn bản để bắt đầu chuyển đổi sang chữ nổi.</span>}
+            <div className={`conv-output braille-autofit ${mode==='vi2br' ? '':''}`} aria-live="polite" style={{fontSize: mode==='vi2br' ? undefined : '16px', fontWeight: mode==='vi2br'?500:600}}>
+              {output ? (mode==='vi2br' ? <>{[...output].map((ch,i)=> ch===' ' ? <span key={i} className="braille-space" /> : ch==='\n' ? <span key={i} style={{width:'100%'}} /> : <span key={i} className="braille-char-frame">{ch}</span>)}</> : output) : <span className="muted">Chưa có nội dung — Nhập văn bản để bắt đầu chuyển đổi sang chữ nổi.</span>}
             </div>
             <div className="conv-meta">
               <span className="small muted">Đã chuyển: {stats.outLen} ký tự</span>

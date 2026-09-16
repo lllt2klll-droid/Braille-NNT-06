@@ -93,18 +93,20 @@ export default function Practice(){
             <div className="section-title" style={{marginBottom:4}}>Hãy nhập: “{typingTarget}”</div>
             <div className="typing-label">Braille mong đợi</div>
             <div className="typing-expected-box">
-              <span className="typing-expected-braille">{vietnameseToBraille(typingTarget)}</span>
-              <span className="small muted" style={{fontWeight:700}}>{typingTarget}</span>
+              <span className="typing-expected-braille">
+                {[...vietnameseToBraille(typingTarget)].map((ch,i)=> ch===' ' ? <span key={i} style={{width:10}} /> : <span key={i} className="braille-char-frame">{ch}</span>)}
+              </span>
+              <span className="small muted" style={{fontWeight:700, whiteSpace:'nowrap'}}>{typingTarget}</span>
             </div>
 
             <div className="typing-label" style={{marginTop:14}}>Kết quả của bạn <span className="muted" style={{textTransform:'none', letterSpacing:0}}>{typingInput.length}/{vietnameseToBraille(typingTarget).length} ô</span></div>
             <div className={`typing-input-box ${typingInput ? 'has-content' : ''}`}>
               {typingInput
-                ? <span className="typing-input-braille">{typingInput}</span>
+                ? <span className="typing-input-braille">{[...typingInput].map((ch,i)=> ch===' ' ? <span key={i} style={{width:10}} /> : <span key={i} className="braille-char-frame filled">{ch}</span>)}</span>
                 : <span className="typing-empty">— chưa nhập —</span>}
             </div>
 
-            {typingFeedback && <div className={`quiz-feedback ${typingFeedback.ok?'ok':'bad'}`} style={{marginTop:12}}>{typingFeedback.ok ? '✓ Chính xác!' : `✕ Chưa đúng. Đáp án: ${typingFeedback.expected}`}</div>}
+            {typingFeedback && <div className={`quiz-feedback ${typingFeedback.ok?'ok':'bad'}`} style={{marginTop:12, display:'flex', gap:6, flexWrap:'wrap', alignItems:'center'}}>{typingFeedback.ok ? '✓ Chính xác!' : <><span>✕ Chưa đúng. Đáp án:</span><span style={{display:'inline-flex', gap:4}}>{[...typingFeedback.expected].map((ch,i)=> ch===' ' ? <span key={i} style={{width:6}}/> : <span key={i} className="braille-char-frame" style={{minWidth:28, height:30, fontSize:16, padding:'0 4px'}}>{ch}</span>)}</span></>}</div>}
 
             <div style={{display:'flex', gap:8, marginTop:14, justifyContent:'center'}}>
               <button className="btn btn-secondary" onClick={()=> { setTypingInput(''); setTypingFeedback(null); }}>Xóa</button>

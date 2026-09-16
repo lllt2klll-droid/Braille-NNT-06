@@ -16,13 +16,28 @@
 }
 [data-theme="dark"] .typing-expected-box { background: #23284A; border-color: rgba(91,103,241,0.16); }
 .typing-expected-braille {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.typing-expected-braille .braille-char-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 40px;
+  padding: 0 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
   font-family: var(--font-braille);
-  font-size: 28px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--color-primary);
-  letter-spacing: 0.08em;
-  line-height: 1;
+  box-shadow: var(--shadow-sm);
 }
+[data-theme="dark"] .typing-expected-braille .braille-char-frame { background: #2E344A; border-color: rgba(91,103,241,0.18); }
 .typing-input-box {
   min-height: 72px;
   margin-top: 12px;
@@ -37,14 +52,30 @@
 }
 .typing-input-box.has-content { border-color: var(--color-primary-soft); background: var(--color-surface-2); }
 .typing-input-braille {
-  font-family: var(--font-braille);
-  font-size: 30px;
-  font-weight: 700;
-  color: var(--color-text);
-  letter-spacing: 0.08em;
-  word-break: break-all;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
+.typing-input-braille .braille-char-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 40px;
+  padding: 0 6px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  font-family: var(--font-braille);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+.typing-input-braille .braille-char-frame.filled { border-color: var(--color-primary-soft); background: var(--color-surface-2); }
 .typing-empty { color: var(--color-text-faint); font-weight: 600; font-size: 14px; }
 .quiz-success { background: var(--color-success-bg); border-color: rgba(66,184,131,0.22); color: var(--color-success); }
 .quiz-error { background: var(--color-error-bg); border-color: rgba(233,107,122,0.18); color: var(--color-error); }
