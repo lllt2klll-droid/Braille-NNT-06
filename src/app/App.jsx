@@ -45,12 +45,11 @@ function Onboarding(){
 
 function Footer(){
   return (
-    <footer style={{padding:'32px 0 80px', borderTop:'1px solid var(--color-border)', marginTop:32, textAlign:'center'}}>
+    <footer style={{padding:'20px 0 72px', borderTop:'1px solid var(--color-border)', marginTop:20, textAlign:'center'}}>
       <div className="container">
-        <div style={{fontWeight:800, fontSize:16}}>VietBraille</div>
-        <div className="small muted">Công cụ học và chuyển đổi chữ nổi tiếng Việt.</div>
-        <div className="small muted">Made for learning & accessibility. © VietBraille</div>
-        <div style={{marginTop:10, display:'inline-flex', alignItems:'center', gap:8, padding:'6px 12px', background:'var(--color-primary-soft)', border:'1px solid rgba(91,103,241,0.12)', borderRadius:999, fontSize:13, fontWeight:700, color:'var(--color-primary)'}}>
+        <div style={{fontWeight:800, fontSize:15}}>VietBraille</div>
+        <div className="small muted" style={{fontSize:12}}>Công cụ học và chuyển đổi chữ nổi tiếng Việt.</div>
+        <div style={{marginTop:8, display:'inline-flex', alignItems:'center', gap:6, padding:'5px 10px', background:'var(--color-primary-soft)', border:'1px solid rgba(91,103,241,0.12)', borderRadius:999, fontSize:12, fontWeight:700, color:'var(--color-primary)'}}>
           <span aria-hidden>👤</span> Người thực hiện: Nguyễn Tuấn
         </div>
       </div>

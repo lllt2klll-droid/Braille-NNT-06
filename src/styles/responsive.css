@@ -42,3 +42,19 @@
 
 /* Braille horizontal scroll if overflow per #74 */
 .braille-overflow { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* — Tinh tế cho điện thoại: bớt lướt, nén khoảng trắng — */
+@media (max-width: 767px) {
+  .container { width: min(100% - 20px, var(--content-max)); }
+  .card-padded { padding: 14px !important; }
+  .page-title { font-size: 22px; margin-bottom: 4px; }
+  .section-title { font-size: 18px; margin-bottom: 8px; }
+  .grid-2, .grid-3 { gap: 10px; }
+  .divider { margin: 10px 0; }
+  .textarea { min-height: 88px !important; }
+  .conv-card { min-height: 180px !important; }
+  .conv-output { min-height: 88px !important; }
+  .braille-grid { gap: 10px !important; padding: 12px !important; }
+  .braille-dot { width: 46px !important; height: 46px !important; }
+  .bottom-nav { height: 60px !important; }
+}

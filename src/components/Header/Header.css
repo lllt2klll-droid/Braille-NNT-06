@@ -6,8 +6,9 @@
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--color-border);
-  height: var(--header-h);
+  height: 56px;
 }
+@media (min-width: 768px) { .header { height: var(--header-h); } }
 @supports not (backdrop-filter: blur(12px)) {
   .header { background: var(--color-surface); }
 }
@@ -16,9 +17,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: var(--header-h);
-  gap: 16px;
+  height: 56px;
+  gap: 12px;
 }
+@media (min-width: 768px) { .header-inner { height: var(--header-h); gap: 16px; } }
 .brand { display:flex; align-items:center; gap:10px; font-weight: 700; font-size: 18px; color: var(--color-text); letter-spacing:-0.02em; }
 .brand:hover { text-decoration:none; }
 .brand-mark { width:34px; height:34px; display:grid; place-items:center; background:var(--color-primary); color:white; border-radius: 12px; font-size:15px; box-shadow: 0 4px 10px rgba(91,103,241,0.24); }

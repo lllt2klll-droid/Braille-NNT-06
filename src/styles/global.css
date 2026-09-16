@@ -57,10 +57,12 @@ img { max-width: 100%; display: block; }
 .section-title { font-size: 20px; font-weight: 700; margin: 0 0 12px; }
 @media (min-width: 768px) { .section-title { font-size: 22px; } }
 
-/* Page + spacing per #63 */
-.page { padding: 24px 0 40px; }
-@media (min-width: 768px) { .page { padding: 32px 0 48px; } }
-.page-subtitle { color: var(--color-text-secondary); margin: 0 0 20px; font-size: 15px; font-weight: 500; line-height: 1.6; }
+/* Page + spacing per #63 — nén tinh tế trên mobile để bớt lướt */
+.page { padding: 16px 0 24px; }
+@media (min-width: 768px) { .page { padding: 24px 0 40px; } }
+@media (min-width: 1024px) { .page { padding: 32px 0 48px; } }
+.page-subtitle { color: var(--color-text-secondary); margin: 0 0 14px; font-size: 14px; font-weight: 500; line-height: 1.5; }
+@media (min-width: 768px) { .page-subtitle { margin: 0 0 20px; font-size: 15px; line-height: 1.6; } }
 
 /* Badge soft pill per #15 */
 .badge {
