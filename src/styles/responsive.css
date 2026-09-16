@@ -1,0 +1,36 @@
+/* Responsive helpers matching spec breakpoints 320,375,390,430,768,1024,1280,1440 */
+
+/* Container already fluid */
+
+/* Bottom nav visible only on mobile */
+.bottom-nav { display: flex; }
+.sidebar { display: none; }
+
+@media (min-width: 1024px) {
+  .bottom-nav { display: none !important; }
+  .sidebar { display: flex !important; }
+  .mobile-header { display: none !important; }
+  .desktop-header { display: flex !important; }
+}
+
+/* Converter layout: stack on mobile, 50/50 on desktop */
+.converter-grid { display: grid; gap: 16px; }
+@media (min-width: 1024px) {
+  .converter-grid { grid-template-columns: 1fr auto 1fr; align-items: start; }
+}
+
+/* Alphabet grid responsive */
+.alphabet-grid { display: grid; gap: 12px; grid-template-columns: repeat(2,1fr); }
+@media (min-width: 480px) { .alphabet-grid { grid-template-columns: repeat(3,1fr); } }
+@media (min-width: 768px) { .alphabet-grid { grid-template-columns: repeat(4,1fr); } }
+@media (min-width: 1024px) { .alphabet-grid { grid-template-columns: repeat(5,1fr); } }
+@media (min-width: 1280px) { .alphabet-grid { grid-template-columns: repeat(6,1fr); } }
+
+/* Braille keyboard dot size scales */
+.braille-dot { width: 52px; height: 52px; }
+@media (min-width: 390px) { .braille-dot { width: 58px; height: 58px; } }
+@media (min-width: 768px) { .braille-dot { width: 64px; height: 64px; } }
+
+/* Hide scrollbar but keep scroll */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }

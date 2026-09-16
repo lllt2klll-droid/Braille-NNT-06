@@ -1,0 +1,2 @@
+.setting-row { display:flex; gap:16px; flex-wrap:wrap; margin-top:8px; }
+.setting-row label { display:flex; gap:6px; align-items:center; font-weight:600; }

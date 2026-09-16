@@ -1,0 +1,7 @@
+.alphabet-controls { display:flex; flex-direction:column; gap:12px; }
+@media(min-width:768px){ .alphabet-controls{ flex-direction:row; align-items:center; justify-content:space-between; } }
+.filter-row { display:flex; gap:8px; flex-wrap:wrap; }
+.alphabet-card { padding:16px; text-align:center; display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer; border-radius:16px; }
+.alpha-braille { font-size:28px; line-height:1; }
+.alpha-char { font-weight:800; font-size:16px; }
+.alpha-dots { font-size:12px; font-weight:700; color: var(--color-text-muted); }

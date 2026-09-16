@@ -1,0 +1,114 @@
+import { useState, useEffect, useMemo } from 'react';
+import { vietnameseToBraille } from '../../utils/vietnameseToBraille.js';
+import { brailleToVietnamese } from '../../utils/brailleToVietnamese.js';
+import { storage } from '../../utils/storage.js';
+import './Converter.css';
+
+export default function Converter(){
+  const [mode, setMode] = useState(()=> storage.get('converterMode','vi2br')); // vi2br | br2vi
+  const [input, setInput] = useState(()=> storage.get('converterInput','Xin chào Việt Nam'));
+  const [toast, setToast] = useState('');
+
+  useEffect(()=> storage.set('converterMode', mode), [mode]);
+  useEffect(()=> storage.set('converterInput', input), [input]);
+
+  // history
+  const [history, setHistory] = useState(()=> storage.get('converterHistory', []));
+  const pushHistory = (vi, br)=>{
+    const entry = { vi, br, at: Date.now() };
+    const next = [entry, ...history].slice(0,10);
+    setHistory(next);
+    storage.set('converterHistory', next);
+  };
+
+  const output = useMemo(()=>{
+    if(!input) return '';
+    try{
+      if(mode==='vi2br') return vietnameseToBraille(input);
+      return brailleToVietnamese(input);
+    } catch(e){ return 'Lỗi chuyển đổi'; }
+  }, [input, mode]);
+
+  const stats = useMemo(()=>{
+    return { inLen: input.length, outLen: output.length };
+  }, [input, output]);
+
+  const copy = async (text)=>{
+    try{ await navigator.clipboard.writeText(text); setToast('Đã sao chép!'); setTimeout(()=> setToast(''), 1500);}catch{}
+  };
+  const clear = ()=>{
+    if(input.length>30){
+      if(!confirm('Bạn có chắc muốn xóa nội dung?')) return;
+    }
+    setInput('');
+  };
+  const swap = ()=>{
+    setMode(m=> m==='vi2br' ? 'br2vi':'vi2br');
+    setInput(output);
+  };
+
+  return (
+    <div className="page container">
+      <h1 className="page-title">Chuyển đổi</h1>
+      <p className="page-subtitle">Tiếng Việt ↔ Braille • Theo chuẩn tách dấu • Cập nhật tức thì</p>
+
+      <div className="converter-toolbar">
+        <div className="mode-switch" role="tablist" aria-label="Chiều chuyển đổi">
+          <button role="tab" aria-selected={mode==='vi2br'} className={`seg ${mode==='vi2br'?'active':''}`} onClick={()=> setMode('vi2br')}>Tiếng Việt → Braille</button>
+          <button role="tab" aria-selected={mode==='br2vi'} className={`seg ${mode==='br2vi'?'active':''}`} onClick={()=> setMode('br2vi')}>Braille → Tiếng Việt</button>
+        </div>
+        <div style={{display:'flex', gap:8, flexWrap:'wrap'}}>
+          <button className="btn btn-secondary btn-sm" onClick={swap}>⇅ Đổi chiều</button>
+          <button className="btn btn-ghost btn-sm" onClick={clear}>Xóa</button>
+        </div>
+      </div>
+
+      <div className="converter-grid" style={{marginTop:16}}>
+        <div className="card card-padded conv-card">
+          <div className="conv-label">{mode==='vi2br' ? 'Tiếng Việt' : 'Chữ nổi Braille'}</div>
+          <textarea className="textarea conv-textarea" placeholder={mode==='vi2br' ? 'Nhập văn bản tiếng Việt...' : 'Nhập Braille, ví dụ: ⠭⠔⠝ ⠡⠷⠕...'} value={input} onChange={e=> setInput(e.target.value)} aria-label="Ô nhập" />
+          <div className="conv-meta">
+            <span className="small muted">Đã nhập: {stats.inLen} ký tự</span>
+            <button className="btn btn-ghost btn-sm" onClick={()=> copy(input)}>Sao chép</button>
+          </div>
+        </div>
+
+        <div className="swap-center">
+          <button className="btn btn-secondary" aria-label="Đổi chiều" onClick={swap}>⇅</button>
+        </div>
+
+        <div className="card card-padded conv-card">
+          <div className="conv-label">{mode==='vi2br' ? 'Chữ nổi Braille' : 'Tiếng Việt'}</div>
+          <div className={`conv-output ${mode==='vi2br' ? 'braille-text':''}`} aria-live="polite">
+            {output || <span className="muted">Chưa có nội dung — Nhập ở ô bên trái để bắt đầu.</span>}
+          </div>
+          <div className="conv-meta">
+            <span className="small muted">Đã chuyển: {stats.outLen} ký tự</span>
+            <div style={{display:'flex', gap:8}}>
+              <button className="btn btn-primary btn-sm" onClick={()=> { copy(output); if(input) pushHistory(mode==='vi2br'? input: output, mode==='vi2br'? output: input); }}>Sao chép</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {history.length>0 && (
+        <div className="card card-padded" style={{marginTop:16}}>
+          <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:8}}>
+            <h3 style={{margin:0}}>Lịch sử (10 gần nhất)</h3>
+            <button className="btn btn-ghost btn-sm" onClick={()=> { setHistory([]); storage.set('converterHistory', []); }}>Xóa lịch sử</button>
+          </div>
+          <div style={{display:'flex', flexDirection:'column', gap:8}}>
+            {history.map((h,i)=>(
+              <div key={i} className="history-item">
+                <div className="small" style={{fontWeight:700}}>{h.vi.slice(0,80)}</div>
+                <div className="braille-text" style={{fontSize:16}}>{h.br.slice(0,80)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {toast && <div className="toast" role="status">{toast}</div>}
+    </div>
+  );
+}

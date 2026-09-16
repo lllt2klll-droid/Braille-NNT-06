@@ -1,0 +1,2 @@
+.typing-layout { display:grid; gap:16px; }
+@media(min-width:1024px){ .typing-layout{ grid-template-columns: 420px 1fr; } }
