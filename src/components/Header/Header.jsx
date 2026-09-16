@@ -1,6 +1,9 @@
 import { Link, useLocation } from 'react-router-dom';
 import { routes } from '../../app/routes.js';
+import Icon from '../Icon/Icon.jsx';
 import './Header.css';
+
+const routeIcon = { '/':'home','/converter':'swap','/keyboard':'keyboard','/alphabet':'alphabet','/learn':'learn','/practice':'practice','/search':'search','/settings':'settings','/help':'help' };
 
 export default function Header({ theme, setTheme }){
   const loc = useLocation();
@@ -18,18 +21,18 @@ export default function Header({ theme, setTheme }){
           </Link>
           <nav className="header-nav" aria-label="Điều hướng chính">
             {routes.filter(r=> !['/search','/settings','/help'].includes(r.path)).map(r=>(
-              <Link key={r.path} to={r.path} className={`nav-link ${loc.pathname===r.path ? 'active':''}`}>{r.label}</Link>
+              <Link key={r.path} to={r.path} className={`nav-link ${loc.pathname===r.path ? 'active':''}`}><span style={{display:'inline-flex', verticalAlign:'middle', marginRight:6}}><Icon name={routeIcon[r.path]} size={14} /></span>{r.label}</Link>
             ))}
           </nav>
           <div className="header-actions">
-            <Link to="/search" className="btn btn-ghost btn-sm" aria-label="Tra cứu">🔎</Link>
+            <Link to="/search" className="btn btn-ghost btn-sm" aria-label="Tra cứu"><Icon name="search" size={16} /></Link>
             <button className="btn btn-ghost btn-sm" aria-label="Đổi giao diện" onClick={()=>{
               const next = theme==='light' ? 'dark' : theme==='dark' ? 'system' : 'light';
               setTheme(next);
             }} title={`Giao diện: ${theme}`}>
-              {theme==='dark' ? '🌙' : theme==='light' ? '☀️' : '◐'}
+              {theme==='dark' ? <Icon name="moon" size={16}/> : theme==='light' ? <Icon name="sun" size={16}/> : <Icon name="settings" size={16}/>}
             </button>
-            <Link to="/settings" className="btn btn-secondary btn-sm">Cài đặt</Link>
+            <Link to="/settings" className="btn btn-secondary btn-sm"><Icon name="settings" size={14}/> Cài đặt</Link>
           </div>
         </div>
       </header>
@@ -42,15 +45,15 @@ export default function Header({ theme, setTheme }){
             <button className="btn btn-ghost btn-sm" aria-label="Đổi giao diện" onClick={()=>{
               const next = theme==='light' ? 'dark' : theme==='dark' ? 'system' : 'light';
               setTheme(next);
-            }}>{theme==='dark' ? '🌙':'☀️'}</button>
+            }}>{theme==='dark' ? <Icon name="moon" size={16}/> : <Icon name="sun" size={16}/>}</button>
             <button className="btn btn-secondary btn-sm" aria-label="Mở menu" onClick={()=>{
               document.getElementById('mobile-drawer')?.classList.toggle('open');
-            }}>☰</button>
+            }}><Icon name="menu" size={16}/></button>
           </div>
         </div>
         <div id="mobile-drawer" className="mobile-drawer">
           {routes.map(r=>(
-            <Link key={r.path} to={r.path} className={`drawer-link ${loc.pathname===r.path ? 'active':''}`} onClick={()=> document.getElementById('mobile-drawer')?.classList.remove('open')}>{r.icon} {r.label}</Link>
+            <Link key={r.path} to={r.path} className={`drawer-link ${loc.pathname===r.path ? 'active':''}`} onClick={()=> document.getElementById('mobile-drawer')?.classList.remove('open')}><Icon name={routeIcon[r.path]} size={16}/> {r.label}</Link>
           ))}
         </div>
       </header>

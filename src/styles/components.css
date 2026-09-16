@@ -25,29 +25,37 @@
 .btn:hover { transform: translateY(-1px); }
 .btn:disabled { opacity:0.55; cursor:not-allowed; transform:none; }
 
-/* variants */
+/* variants — 3D tinh tế: đáy dày + bóng nổi */
 .btn-primary {
   background: var(--color-primary);
   color: white;
-  box-shadow: 0 4px 10px rgba(91,103,241,0.28);
+  border: none;
+  border-bottom: 3px solid #434FCC;
+  box-shadow: 0 4px 10px rgba(91,103,241,0.28), 0 2px 0 rgba(0,0,0,0.06);
   border-radius: 16px;
 }
-.btn-primary:hover { background: var(--color-primary-hover); box-shadow: 0 6px 14px rgba(91,103,241,0.32); }
+.btn-primary:hover { background: var(--color-primary-hover); box-shadow: 0 6px 14px rgba(91,103,241,0.32), 0 3px 0 rgba(0,0,0,0.06); }
+.btn-primary:active { transform: translateY(2px); border-bottom-width: 1px; box-shadow: 0 2px 6px rgba(91,103,241,0.22); }
 
 .btn-secondary {
   background: var(--color-surface);
   color: var(--color-text);
-  border-color: var(--color-border);
-  box-shadow: var(--shadow-sm);
+  border: 1.5px solid var(--color-border);
+  border-bottom: 3px solid var(--color-border-strong);
+  box-shadow: 0 2px 8px rgba(30,40,70,0.06);
 }
 .btn-secondary:hover { border-color: var(--color-border-strong); }
+.btn-secondary:active { transform: translateY(2px); border-bottom-width: 1.5px; box-shadow: 0 1px 4px rgba(30,40,70,0.05); }
 
 .btn-soft {
   background: var(--color-primary-soft);
   color: var(--color-primary);
-  border-color: var(--color-primary-soft);
+  border: none;
+  border-bottom: 3px solid #D6DAFF;
+  box-shadow: 0 2px 6px rgba(91,103,241,0.12);
 }
 .btn-soft:hover { background: #E2E5FF; }
+.btn-soft:active { transform: translateY(2px); border-bottom-width: 1px; }
 
 .btn-danger {
   background: var(--color-error-bg);
@@ -60,8 +68,10 @@
   background: transparent;
   color: var(--color-text);
   border-color: transparent;
+  box-shadow: none;
 }
 .btn-ghost:hover { background: var(--color-surface-2); }
+.btn-ghost:active { transform: translateY(1px); }
 
 /* sizes */
 .btn-small, .btn-sm { padding: 8px 14px; font-size: 13px; min-height: 36px; border-radius: 12px; }

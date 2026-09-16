@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { vietnameseToBraille } from '../../utils/vietnameseToBraille.js';
 import { brailleToVietnamese } from '../../utils/brailleToVietnamese.js';
 import { storage } from '../../utils/storage.js';
+import Icon from '../../components/Icon/Icon.jsx';
 import './Converter.css';
 
 export default function Converter(){
@@ -60,8 +61,8 @@ export default function Converter(){
           <button role="tab" aria-selected={mode==='br2vi'} className={`seg ${mode==='br2vi'?'active':''}`} onClick={()=> setMode('br2vi')}>Braille → Tiếng Việt</button>
         </div>
         <div style={{display:'flex', gap:8, flexWrap:'wrap'}}>
-          <button className="btn btn-secondary btn-sm" onClick={swap}>⇅ Đổi chiều</button>
-          <button className="btn btn-ghost btn-sm" onClick={clear}>Xóa</button>
+          <button className="btn btn-secondary btn-sm" onClick={swap}><Icon name="swap" size={14}/> Đổi chiều</button>
+          <button className="btn btn-ghost btn-sm" onClick={clear}><Icon name="trash" size={14}/> Xóa</button>
         </div>
       </div>
 
@@ -73,13 +74,13 @@ export default function Converter(){
             <textarea id="conv-input" className="textarea conv-textarea" placeholder={mode==='vi2br' ? 'Nhập nội dung cần chuyển đổi...' : 'Nhập Braille, ví dụ: ⠭⠔⠝ ⠡⠷⠕...'} value={input} onChange={e=> setInput(e.target.value)} aria-label="Ô nhập" />
             <div className="conv-meta">
               <span className="small muted">Đã nhập: {stats.inLen} ký tự</span>
-              <button className="btn btn-ghost btn-sm" onClick={()=> copy(input)}>Sao chép</button>
+              <button className="btn btn-ghost btn-sm" onClick={()=> copy(input)}><Icon name="copy" size={14}/> Sao chép</button>
             </div>
           </div>
 
           <div className="swap-center">
-            <button className="btn btn-secondary swap-btn" aria-label="Đổi chiều" onClick={swap}>⇅</button>
-            <button className="btn btn-ghost btn-sm" style={{marginTop:8}} onClick={swap}>Đổi chiều</button>
+            <button className="btn btn-secondary swap-btn" aria-label="Đổi chiều" onClick={swap}><Icon name="swap" size={16}/></button>
+            <button className="btn btn-ghost btn-sm" style={{marginTop:8}} onClick={swap}><Icon name="swap" size={14}/> Đổi chiều</button>
           </div>
 
           <div className="card card-padded conv-card" style={{borderRadius:18}}>
@@ -90,14 +91,14 @@ export default function Converter(){
             <div className="conv-meta">
               <span className="small muted">Đã chuyển: {stats.outLen} ký tự</span>
               <div style={{display:'flex', gap:8}}>
-                <button className="btn btn-primary btn-sm" onClick={()=> { copy(output); if(input) pushHistory(mode==='vi2br'? input: output, mode==='vi2br'? output: input); }}>Sao chép</button>
+                <button className="btn btn-primary btn-sm" onClick={()=> { copy(output); if(input) pushHistory(mode==='vi2br'? input: output, mode==='vi2br'? output: input); }}><Icon name="copy" size={14}/> Sao chép</button>
               </div>
             </div>
           </div>
         </div>
         <div style={{display:'flex', gap:8, marginTop:12, justifyContent:'center', flexWrap:'wrap'}}>
-          <button className="btn btn-ghost btn-sm" onClick={clear}>Xóa</button>
-          <button className="btn btn-secondary btn-sm" onClick={()=> copy(output)}>Sao chép kết quả</button>
+          <button className="btn btn-ghost btn-sm" onClick={clear}><Icon name="trash" size={14}/> Xóa</button>
+          <button className="btn btn-secondary btn-sm" onClick={()=> copy(output)}><Icon name="copy" size={14}/> Sao chép kết quả</button>
         </div>
       </div>
 

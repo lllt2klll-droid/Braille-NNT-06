@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { storage } from '../../utils/storage.js';
+import Icon from '../../components/Icon/Icon.jsx';
 import './Home.css';
 
 export default function Home(){
@@ -17,12 +18,12 @@ export default function Home(){
           </div>
           <span className="illus-braille">⠿</span>
         </div>
-        <div className="hero-badge">✨ Chạy 100% trên trình duyệt • Không cần tài khoản</div>
+        <div className="hero-badge">Chạy 100% trên trình duyệt • Không cần tài khoản</div>
         <h1 className="app-title hero-title">VietBraille<br/><span>Học chữ nổi – Kết nối bằng ngôn ngữ của đôi tay.</span></h1>
         <p className="hero-desc">Học, luyện tập và chuyển đổi chữ nổi tiếng Việt một cách trực quan, đơn giản và dễ tiếp cận.</p>
         <div className="hero-actions">
-          <Link to="/learn" className="btn btn-primary btn-lg">Bắt đầu học</Link>
-          <Link to="/converter" className="btn btn-secondary btn-lg">Chuyển đổi văn bản</Link>
+          <Link to="/learn" className="btn btn-primary btn-lg"><Icon name="play" size={16}/> Bắt đầu học</Link>
+          <Link to="/converter" className="btn btn-secondary btn-lg"><Icon name="swap" size={16}/> Chuyển đổi văn bản</Link>
         </div>
         <div className="hero-stats">
           <div><b>32</b> ký tự cơ bản</div><span>•</span><div><b>5</b> dấu thanh</div><span>•</span><div><b>6</b> chấm</div>
@@ -30,10 +31,10 @@ export default function Home(){
       </section>
 
       <section className="shortcuts">
-        <Link to="/keyboard" className="card card-hover shortcut-card"><div className="sc-icon">⠿</div><div><div className="sc-title">Bàn phím Braille</div><div className="small muted">Tập viết bằng 6 chấm</div></div></Link>
-        <Link to="/converter" className="card card-hover shortcut-card"><div className="sc-icon">⇄</div><div><div className="sc-title">Chuyển đổi</div><div className="small muted">Tiếng Việt ↔ Braille</div></div></Link>
-        <Link to="/alphabet" className="card card-hover shortcut-card"><div className="sc-icon">ABC</div><div><div className="sc-title">Bảng chữ cái</div><div className="small muted">Tra cứu ký hiệu</div></div></Link>
-        <Link to="/practice" className="card card-hover shortcut-card"><div className="sc-icon">🎓</div><div><div className="sc-title">Học tập</div><div className="small muted">Học từng bước</div></div></Link>
+        <Link to="/keyboard" className="card card-hover shortcut-card"><div className="sc-icon"><Icon name="keyboard" size={20}/></div><div><div className="sc-title">Bàn phím Braille</div><div className="small muted">Tập viết bằng 6 chấm</div></div></Link>
+        <Link to="/converter" className="card card-hover shortcut-card"><div className="sc-icon"><Icon name="swap" size={20}/></div><div><div className="sc-title">Chuyển đổi</div><div className="small muted">Tiếng Việt ↔ Braille</div></div></Link>
+        <Link to="/alphabet" className="card card-hover shortcut-card"><div className="sc-icon"><Icon name="alphabet" size={20}/></div><div><div className="sc-title">Bảng chữ cái</div><div className="small muted">Tra cứu ký hiệu</div></div></Link>
+        <Link to="/practice" className="card card-hover shortcut-card"><div className="sc-icon"><Icon name="learn" size={20}/></div><div><div className="sc-title">Học tập</div><div className="small muted">Học từng bước</div></div></Link>
       </section>
 
       {(history.length>0 || learned>0) && (
@@ -53,9 +54,9 @@ export default function Home(){
       )}
 
       <section className="card card-padded" style={{marginTop:20, display:'flex', gap:12, alignItems:'center'}}>
-        <span style={{fontSize:20}}>♿</span>
+        <Icon name="learn" size={20} />
         <div><div style={{fontWeight:700}}>Thiết kế hỗ trợ tiếp cận</div><div className="small muted">Bàn phím 44px, focus rõ, hỗ trợ screen reader và giảm chuyển động.</div></div>
-        <Link to="/help" className="btn btn-soft btn-sm" style={{marginLeft:'auto'}}>Xem tùy chọn</Link>
+        <Link to="/help" className="btn btn-soft btn-sm" style={{marginLeft:'auto'}}><Icon name="help" size={14}/> Xem</Link>
       </section>
 
       <section className="info-grid grid-3" style={{marginTop:20}}>
