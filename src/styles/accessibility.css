@@ -1,12 +1,10 @@
-/* Focus visible */
+/* accessibility.css per #83-86 */
 :focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 3px solid var(--color-primary);
   outline-offset: 2px;
   border-radius: 6px;
 }
 :focus:not(:focus-visible) { outline: none; }
-
-/* Skip link */
 .skip-link {
   position: absolute;
   top: -100px;
@@ -19,19 +17,10 @@
   font-weight: 700;
 }
 .skip-link:focus { top: 12px; }
-
-/* High contrast adjustments for dark mode */
-[data-theme="dark"] .braille-text { color: #F1F5F9; }
-
-/* Reduced motion */
+[data-theme="dark"] .braille-text { color: #F4F6FA; }
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
-
-/* Ensure Braille visibility not faint */
-.braille-char { color: var(--color-text); }
-
-/* Touch targets min 44px enforced via .btn already */
+/* Large text mode per #75 */
+.large-text { font-size: 1.15em; }
+.xlarge-text { font-size: 1.3em; }

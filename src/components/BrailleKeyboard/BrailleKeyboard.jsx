@@ -80,27 +80,26 @@ export default function BrailleKeyboard({ onSend, onBrailleChange }){
 
   return (
     <div className="bk-root">
-      <div className="bk-cell-wrap">
+      <div className="bk-card">
         <BrailleCell dots={dots} size="large" interactive showNumbers={storage.get('showDotNumbers', true)} onToggle={toggle} showLabel={`${brailleChar}  •  chấm ${dots.join('-') || 'trống'}`} />
-        <div className="bk-preview">
-          <div className="braille-text" aria-live="polite">{history.join(' ') || '— chưa có ký tự —'}</div>
-          <div className="small muted">{history.length} ký tự</div>
+        <div className="bk-preview braille-autofit">
+          <div className="braille-text" aria-live="polite" style={{whiteSpace:'nowrap'}}>{history.join(' ') || '— chưa có ký tự —'}</div>
+          <div className="small muted" style={{marginTop:4}}>{history.length} ký tự</div>
+        </div>
+        <div className="bk-actions">
+          <button className="btn btn-secondary" onClick={handleClearDots} aria-label="Xóa chấm">Xóa</button>
+          <button className="btn btn-secondary" onClick={handleBackspace} aria-label="Xóa ký tự cuối">⌫ Xóa ký tự</button>
+          <button className="btn btn-primary btn-large" onClick={handleSend} aria-label="Gửi ký tự Braille" disabled={dots.length===0}>Gửi</button>
+        </div>
+        <div className="bk-actions" style={{justifyContent:'center'}}>
+          <button className="btn btn-ghost btn-sm" onClick={handleClearAll}>Xóa tất cả</button>
+          <button className="btn btn-ghost btn-sm" onClick={()=>{
+            const txt = history.join('');
+            if(txt) navigator.clipboard.writeText(txt);
+          }}>Sao chép</button>
         </div>
       </div>
-
-      <div className="bk-actions">
-        <button className="btn btn-secondary" onClick={handleClearDots} aria-label="Xóa chấm">Xóa chấm</button>
-        <button className="btn btn-secondary" onClick={handleBackspace} aria-label="Xóa ký tự cuối">⌫ Xóa ký tự</button>
-        <button className="btn btn-primary btn-lg" onClick={handleSend} aria-label="Gửi ký tự Braille" disabled={dots.length===0}>Gửi ➤</button>
-      </div>
-      <div className="bk-actions" style={{justifyContent:'center'}}>
-        <button className="btn btn-ghost btn-sm" onClick={handleClearAll}>Xóa tất cả</button>
-        <button className="btn btn-ghost btn-sm" onClick={()=>{
-          const txt = history.join('');
-          if(txt) navigator.clipboard.writeText(txt);
-        }}>Sao chép</button>
-      </div>
-      <div className="card card-padded" style={{marginTop:12}}>
+      <div className="card card-padded" style={{marginTop:4, width:'100%', maxWidth:520}}>
         <div className="small muted" style={{textAlign:'center'}}>
           Nhấn các chấm 1-6 • Phím vật lý: <b>D S A</b> (1 2 3) và <b>J K L</b> (4 5 6) • Enter = Gửi • Backspace = Xóa • Esc = Xóa chấm
         </div>

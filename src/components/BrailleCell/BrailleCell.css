@@ -6,8 +6,8 @@
   gap: 10px;
   padding: 16px;
   background: var(--color-surface);
-  border: 1.5px solid var(--color-border);
-  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
   box-shadow: var(--shadow-sm);
 }
 .braille-cell--small .braille-grid { gap:6px; padding:10px; }
@@ -15,31 +15,34 @@
 
 .braille-dot {
   position: relative;
-  width: 56px; height: 56px;
+  width: 44px; height: 44px;
   border-radius: 50%;
-  border: 1.5px solid var(--color-border);
-  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  background: #E5E8F0;
   display:grid; place-items:center;
   cursor:pointer;
-  transition: transform 140ms ease, background var(--ease), border-color var(--ease), box-shadow var(--ease);
+  transition: transform var(--transition-fast) ease-out, background var(--transition-fast) ease-out, border-color var(--transition-fast) ease-out, box-shadow var(--transition-fast) ease-out;
 }
+[data-theme="dark"] .braille-dot { background: #2E344A; border-color: var(--color-border); }
 .braille-dot:disabled { cursor: default; }
 .braille-dot.active {
   background: var(--color-primary);
   border-color: var(--color-primary);
-  box-shadow: 0 6px 14px rgba(37,99,235,0.32);
+  box-shadow: 0 4px 10px rgba(91,103,241,0.24);
+  transform: scale(1.04);
 }
-.braille-dot:active:not(:disabled) { transform: scale(0.96); }
-.braille-dot:focus-visible { outline:2px solid var(--color-primary); outline-offset:2px; }
+.braille-dot:active:not(:disabled) { transform: scale(0.98); }
+.braille-dot:focus-visible { outline:3px solid var(--color-primary); outline-offset:2px; }
 .dot-inner {
-  width: 18px; height: 18px;
+  width: 16px; height: 16px;
   border-radius:50%;
-  background: var(--color-border-strong);
-  transition: background var(--ease), transform var(--ease);
+  background: transparent;
+  transition: background var(--transition-fast) ease-out, transform var(--transition-fast) ease-out;
 }
-.braille-dot.active .dot-inner { background: white; transform: scale(1.05); }
+.braille-dot.active .dot-inner { background: white; transform: scale(1.02); }
 .dot-number {
-  position:absolute; bottom:-14px; font-size:10px; font-weight:800; color: var(--color-text-muted);
+  position:absolute; bottom:-15px; font-size:10px; font-weight:700; color: var(--color-text-secondary);
 }
-.braille-label { font-weight:700; font-size:14px; color: var(--color-text-muted); }
-@media(min-width:768px){ .braille-dot{ width:64px; height:64px; } .dot-inner{ width:22px; height:22px; } }
+.braille-label { font-weight:700; font-size:13px; color: var(--color-text-secondary); text-align:center; }
+@media(min-width:768px){ .braille-dot{ width:40px; height:40px; } .dot-inner{ width:16px; height:16px; } }
+@media(max-width:767px){ .braille-dot{ width:44px; height:44px; } }

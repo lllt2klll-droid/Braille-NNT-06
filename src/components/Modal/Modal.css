@@ -1,4 +1,7 @@
-.modal-overlay { position:fixed; inset:0; background: rgba(15,23,42,0.45); backdrop-filter: blur(6px); display:grid; place-items:center; z-index:60; padding:16px; }
-.modal { background: var(--color-surface); border:1.5px solid var(--color-border); border-radius: var(--radius-xl); box-shadow: var(--shadow-lg); width:min(100%, 520px); overflow:hidden; }
+.modal-overlay { position:fixed; inset:0; background: rgba(20,25,40,.35); backdrop-filter: blur(6px); display:grid; place-items:center; z-index:60; padding:16px; animation: overlayIn 160ms ease-out; }
+@keyframes overlayIn { from { opacity:0; } to { opacity:1; } }
+.modal { background: var(--color-surface); border:1px solid var(--color-border); border-radius: 24px; box-shadow: var(--shadow-lg); width:min(100%, 520px); overflow:hidden; animation: modalIn 160ms ease-out; }
+@keyframes modalIn { from { opacity:0; transform: translateY(6px);} to {opacity:1; transform: translateY(0);} }
 .modal-head { display:flex; align-items:center; justify-content:space-between; padding:16px 18px; border-bottom:1px solid var(--color-border); }
 .modal-body { padding:18px; }
+@media (prefers-reduced-motion: reduce) { .modal, .modal-overlay { animation: none; } }

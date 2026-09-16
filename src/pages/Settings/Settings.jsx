@@ -52,6 +52,11 @@ export default function Settings(){
   return (
     <div className="page container">
       <h1 className="page-title">Cài đặt</h1>
+      <p className="page-subtitle">Điều chỉnh hiển thị, Braille và dữ liệu — khung app giữ nguyên, chỉ thay đổi kích thước và độ tương phản.</p>
+      <div className="card card-padded" style={{marginBottom:16, display:'flex', gap:10, alignItems:'center', flexWrap:'wrap'}}>
+        <span className="small" style={{fontWeight:700}}>Cài đặt hiển thị</span>
+        <span className="small muted">Tự động vừa khung khi Braille dài • Cỡ chữ lớn qua Settings hệ thống • Giảm chuyển động theo prefers-reduced-motion</span>
+      </div>
       <div className="grid-2">
         <div className="card card-padded">
           <h3>Giao diện</h3>

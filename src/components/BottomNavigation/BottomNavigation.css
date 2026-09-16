@@ -3,24 +3,24 @@
   left: 0; right: 0; bottom: 0;
   height: var(--bottom-nav-h);
   background: var(--color-surface);
-  border-top: 1.5px solid var(--color-border);
+  border-top: 1px solid var(--color-border);
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
   z-index: 45;
-  box-shadow: 0 -6px 20px rgba(15,23,42,0.06);
+  box-shadow: 0 -6px 20px rgba(30,40,70,0.06);
 }
 .bn-item {
   flex: 1;
   display:flex; flex-direction:column; align-items:center; gap:2px;
-  color: var(--color-text-muted);
+  color: var(--color-text-secondary);
   font-weight: 700;
   font-size: 11px;
   padding: 6px 4px;
-  border-radius: 12px;
+  border-radius: 14px;
 }
 .bn-item:hover { text-decoration:none; background: var(--color-surface-2); }
-.bn-item.active { color: var(--color-primary); background: var(--color-primary-light); }
+.bn-item.active { color: var(--color-primary); background: var(--color-primary-soft); }
 .bn-icon { font-size: 18px; line-height:1; }
 .bn-label { line-height:1; }

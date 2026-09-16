@@ -1,7 +1,7 @@
-.quiz-card { display:flex; flex-direction:column; gap:14px; }
-.quiz-q { font-size:20px; font-weight:800; letter-spacing:-0.01em; }
+.quiz-card { display:flex; flex-direction:column; gap:14px; border-radius:20px; }
+.quiz-q { font-size:20px; font-weight:700; letter-spacing:-0.01em; }
 .quiz-options { display:grid; gap:10px; grid-template-columns: repeat(2,1fr); }
-.quiz-opt { min-height:56px; font-size:18px; }
-.quiz-feedback { padding:10px 14px; border-radius:12px; font-weight:700; }
-.quiz-feedback.ok { background: var(--color-success-bg); color: var(--color-success); border:1.5px solid rgba(22,163,74,0.2); }
-.quiz-feedback.bad { background: var(--color-error-bg); color: var(--color-error); border:1.5px solid rgba(220,38,38,0.18); }
+.quiz-opt { min-height:50px; font-size:18px; border-radius:14px; }
+.quiz-feedback { padding:12px 14px; border-radius:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+.quiz-feedback.ok { background: var(--color-success-bg); color: var(--color-success); border:1px solid rgba(66,184,131,0.18); }
+.quiz-feedback.bad { background: var(--color-error-bg); color: var(--color-error); border:1px solid rgba(233,107,122,0.14); }

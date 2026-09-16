@@ -1,8 +1,12 @@
 .learn-layout { display:grid; gap:16px; margin-top:16px; }
 @media(min-width:1024px){ .learn-layout{ grid-template-columns: 260px 1fr; } }
-.learn-sidebar { padding:8px; display:flex; flex-direction:column; gap:6px; align-self:start; }
-.learn-item { text-align:left; padding:12px; border-radius:12px; border:1.5px solid transparent; background:transparent; cursor:pointer; font-family:var(--font-sans); }
+.learn-sidebar { padding:8px; display:flex; flex-direction:column; gap:6px; align-self:start; border-radius:20px; }
+.learn-item { text-align:left; padding:14px; border-radius:14px; border:1.5px solid transparent; background:transparent; cursor:pointer; font-family:var(--font-sans); transition: all var(--transition-fast) ease-out; }
 .learn-item:hover{ background: var(--color-surface-2); }
-.learn-item.active{ background: var(--color-primary-light); border-color: rgba(37,99,235,0.18); }
-.learn-item-title{ font-weight:800; }
-.learn-step { padding:14px; background: var(--color-surface-2); border:1px solid var(--color-border); border-radius:12px; margin-top:10px; }
+.learn-item.active{ background: var(--color-primary-soft); border-color: transparent; color: var(--color-primary); }
+.learn-item-title{ font-weight:700; font-size:15px; }
+.learn-step { padding:16px; background: var(--color-surface-2); border:1px solid var(--color-border); border-radius:18px; margin-top:10px; }
+.step-indicator { display:flex; gap:8px; align-items:center; margin:12px 0; }
+.step-dot { width:10px; height:10px; border-radius:50%; background: var(--color-border); }
+.step-dot.active { background: var(--color-primary); }
+.step-dot.done { background: var(--color-success); }
