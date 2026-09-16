@@ -21,9 +21,20 @@
   background: #E5E8F0;
   display:grid; place-items:center;
   cursor:pointer;
-  transition: transform var(--transition-fast) ease-out, background var(--transition-fast) ease-out, border-color var(--transition-fast) ease-out, box-shadow var(--transition-fast) ease-out;
+  transition: transform var(--transition-fast) ease-out, background var(--transition-fast) ease-out, border-color var(--transition-fast) ease-out, box-shadow var(--transition-fast) ease-out, opacity var(--transition-fast) ease-out;
 }
 [data-theme="dark"] .braille-dot { background: #2E344A; border-color: var(--color-border); }
+.braille-dot:not(.active) {
+  background: rgba(229,232,240,0.1);
+  border-color: rgba(231,234,242,0.55);
+  box-shadow: none;
+}
+[data-theme="dark"] .braille-dot:not(.active) {
+  background: rgba(46,52,74,0.22);
+  border-color: rgba(46,52,74,0.35);
+}
+.braille-dot:not(.active) .dot-inner { background: transparent; }
+.braille-dot:not(.active) .dot-number { opacity: 1; color: var(--color-text-secondary); }
 .braille-dot:disabled { cursor: default; }
 .braille-dot.active {
   background: var(--color-primary);
