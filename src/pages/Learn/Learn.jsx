@@ -3,6 +3,7 @@ import { lessons } from '../../data/lessons.js';
 import { allEntries, dotsToChar } from '../../data/vietnameseBraille.js';
 import BrailleCell from '../../components/BrailleCell/BrailleCell.jsx';
 import BrailleCharacterCard from '../../components/BrailleCharacterCard/BrailleCharacterCard.jsx';
+import BrailleKeyboard from '../../components/BrailleKeyboard/BrailleKeyboard.jsx';
 import ProgressBar from '../../components/ProgressBar/ProgressBar.jsx';
 import { storage } from '../../utils/storage.js';
 import { speak } from '../../utils/speak.js';
@@ -362,6 +363,42 @@ export default function Learn(){
               {lessons.findIndex(l=> l.id===activeId) < lessons.length-1 && (
                 <button className="btn btn-ghost" onClick={()=> setActiveId(lessons[lessons.findIndex(l=> l.id===activeId)+1].id)}>Bài tiếp theo →</button>
               )}
+            </div>
+          </div>
+
+          {/* Bàn phím 6 chấm luôn có trên mobile — khắc phục báo lỗi "không có phím bấm 6 chấm" */}
+          <div className="card card-padded" style={{marginTop:16}}>
+            <div style={{fontWeight:700, marginBottom:8}}>Bàn phím 6 chấm — luyện nhanh mọi lúc</div>
+            <p className="small muted" style={{marginTop:0}}>Chạm các chấm hoặc dùng phím 1-6 / D S A J K L. Bấm <b>Gửi</b> để tạo ký tự, dùng để thử ở bài học phía trên.</p>
+            <BrailleKeyboard
+              onSend={(ch, dots)=>{
+                // Đồng bộ với bài đang học để Kiểm tra hoạt động ngay
+                if(isIntro){
+                  setTryDots(dots);
+                } else if(mode==='create'){
+                  setLearnModeDots(dots);
+                }
+              }}
+              onBrailleChange={(_ch, _dots)=>{
+                if(isIntro){
+                  // preview only, không auto set để tránh nhảy liên tục — chỉ khi user bấm Gửi mới đồng bộ
+                }
+              }}
+              hideHistory={false}
+            />
+            <div style={{display:'flex', gap:8, marginTop:10, flexWrap:'wrap', justifyContent:'center'}}>
+              <button className="btn btn-ghost btn-sm" onClick={()=>{
+                if(isIntro) setTryDots([]);
+                else setLearnModeDots([]);
+              }}>Xóa chấm đang chọn</button>
+              <button className="btn btn-secondary btn-sm" onClick={()=>{
+                if(isIntro && active.steps){
+                  const tryStep = active.steps.find(s=> s.type==='try');
+                  if(tryStep) handleCheckIntro(tryStep.expectedDots);
+                } else if(mode==='create'){
+                  handleCreateCheck();
+                }
+              }}>Kiểm tra nhanh</button>
             </div>
           </div>
         </div>

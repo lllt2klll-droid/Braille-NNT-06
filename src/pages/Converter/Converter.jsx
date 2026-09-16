@@ -4,6 +4,7 @@ import { brailleToVietnamese } from '../../utils/brailleToVietnamese.js';
 import { storage } from '../../utils/storage.js';
 import { allEntries } from '../../data/vietnameseBraille.js';
 import { brailleToDots } from '../../utils/brailleParser.js';
+import BrailleKeyboard from '../../components/BrailleKeyboard/BrailleKeyboard.jsx';
 import Modal from '../../components/Modal/Modal.jsx';
 import BrailleCharacterCard from '../../components/BrailleCharacterCard/BrailleCharacterCard.jsx';
 import Icon from '../../components/Icon/Icon.jsx';
@@ -133,6 +134,13 @@ export default function Converter(){
         </div>
       </div>
 
+      {mode==='br2vi' && (
+        <div className="card card-padded" style={{marginTop:16}}>
+          <div style={{fontWeight:700, marginBottom:8}}>Bàn phím 6 chấm — chạm để nhập Braille</div>
+          <BrailleKeyboard onSend={ch=> setInput(prev=> prev + ch)} hideHistory={false} />
+          <div className="small muted" style={{textAlign:'center', marginTop:8}}>Mỗi lần bấm <b>Gửi</b> sẽ thêm một ô Braille vào ô nhập phía trên • Phím 1-6 hoặc D S A J K L • Enter=Gửi</div>
+        </div>
+      )}
       <div className="conv-frame" style={{marginTop:16}}>
         <div style={{fontWeight:700, marginBottom:12}}>Chuyển đổi chữ nổi</div>
         <div className="converter-grid">
