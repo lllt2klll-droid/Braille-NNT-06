@@ -1,0 +1,6 @@
+.bcc { text-align:center; max-width:420px; margin-inline:auto; }
+.bcc-top { display:flex; gap:8px; justify-content:center; margin-bottom:6px; }
+.bcc-char { font-size:44px; font-weight:800; line-height:1; color:var(--color-text); }
+.bcc-braille { font-family:var(--font-braille); font-size:36px; color:var(--color-primary); line-height:1; margin-top:4px; }
+.bcc-dots-label { font-weight:700; font-size:13px; color:var(--color-text-secondary); }
+.bcc-actions { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:10px; }

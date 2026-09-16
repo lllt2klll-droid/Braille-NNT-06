@@ -47,13 +47,19 @@ export default function BrailleKeyboard({ onSend, onBrailleChange, hideHistory=f
     setDots([]);
   }, []);
 
-  // physical keyboard — đặt sau khi handlers đã định nghĩa
+  // physical keyboard — hỗ trợ 1-6 + DSA/JKL per spec §11
   useEffect(()=>{
     const down = new Set();
     const onKeyDown = (e)=>{
       if(e.repeat) return;
       if(e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA') return;
-      const dot = getDotForKey(e.key, keyMap);
+      // Direct 1-6
+      let dot = null;
+      if(e.key>='1' && e.key<='6'){
+        dot = Number(e.key);
+      } else {
+        dot = getDotForKey(e.key, keyMap);
+      }
       if(dot){
         e.preventDefault();
         down.add(dot);
@@ -68,11 +74,18 @@ export default function BrailleKeyboard({ onSend, onBrailleChange, hideHistory=f
         handleBackspace();
       }
       if(e.key==='Escape'){
+        e.preventDefault();
         setDots([]);
+      }
+      if(e.key===' '){
+        e.preventDefault();
+        handleSend();
       }
     };
     const onKeyUp = (e)=>{
-      const dot = getDotForKey(e.key, keyMap);
+      let dot = null;
+      if(e.key>='1' && e.key<='6') dot = Number(e.key);
+      else dot = getDotForKey(e.key, keyMap);
       if(dot) down.delete(dot);
     };
     window.addEventListener('keydown', onKeyDown);
@@ -105,7 +118,7 @@ export default function BrailleKeyboard({ onSend, onBrailleChange, hideHistory=f
       </div>
       <div className="card card-padded" style={{marginTop:4, width:'100%', maxWidth:520}}>
         <div className="small muted" style={{textAlign:'center'}}>
-          Nhấn các chấm 1-6 • Phím vật lý: <b>D S A</b> (1 2 3) và <b>J K L</b> (4 5 6) • Enter = Gửi • Backspace = Xóa • Esc = Xóa chấm
+          Nhấn các chấm 1-6 • Phím vật lý: <b>1 2 3 4 5 6</b> hoặc <b>D S A J K L</b> • <b>Enter</b> = Kiểm tra/Gửi • <b>Backspace</b> = Xóa • <b>Esc</b> = Xóa chấm
         </div>
       </div>
     </div>

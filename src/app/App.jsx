@@ -17,28 +17,26 @@ import Modal from '../components/Modal/Modal.jsx';
 
 function Onboarding(){
   const [open, setOpen] = useState(()=> !storage.get('onboardingCompleted', false));
-  const [step, setStep] = useState(0);
-  const steps = [
-    { title:'Chào mừng đến VietBraille', desc:'Công cụ học và chuyển đổi chữ nổi tiếng Việt — miễn phí, offline, không cần tài khoản.' },
-    { title:'Braille sử dụng 6 chấm', desc:'Mỗi ô gồm 2 cột 3 hàng, đánh số 1-2-3 bên trái và 4-5-6 bên phải. Bật tắt chấm tạo ký tự.' },
-    { title:'Hãy thử tạo chữ A', desc:'Chữ A chỉ cần bật chấm 1 (⠁). Vào mục Học tập để thử ngay!' },
-  ];
-  const close = ()=>{
+  const close = (choice)=>{
     storage.set('onboardingCompleted', true);
+    if(choice==='beginner') storage.set('userType','beginner');
+    else if(choice==='known') storage.set('userType','known');
     setOpen(false);
+    if(choice==='beginner'){
+      // navigate to learn intro
+      setTimeout(()=> { window.location.hash = '#/learn'; }, 100);
+    }
   };
   if(!open) return null;
   return (
-    <Modal open={true} onClose={close} title={steps[step].title}>
-      <p className="muted">{steps[step].desc}</p>
-      <div style={{display:'flex', gap:8, justifyContent:'space-between', marginTop:12}}>
-        <button className="btn btn-ghost" onClick={close}>Bỏ qua</button>
-        <div style={{display:'flex', gap:8}}>
-          {step>0 && <button className="btn btn-secondary" onClick={()=> setStep(s=> s-1)}>Quay lại</button>}
-          {step<steps.length-1 ? <button className="btn btn-primary" onClick={()=> setStep(s=> s+1)}>Tiếp tục</button> : <button className="btn btn-primary" onClick={close}>Bắt đầu</button>}
-        </div>
+    <Modal open={true} onClose={()=> close('known')} title="Chào mừng đến với VietBraille 👋">
+      <p style={{fontWeight:600, marginBottom:4}}>Bạn chưa từng học Braille?</p>
+      <p className="small muted" style={{marginTop:0}}>Chọn lộ trình phù hợp — không cần tài khoản, học ngay trên trình duyệt.</p>
+      <div style={{display:'grid', gap:10, marginTop:14}}>
+        <button className="btn btn-primary btn-lg" onClick={()=> close('beginner')} autoFocus>▶ BẮT ĐẦU TỪ ĐẦU</button>
+        <button className="btn btn-secondary" onClick={()=> close('known')}>Tôi đã biết Braille — đến bảng điều khiển</button>
       </div>
-      <div className="small muted" style={{textAlign:'center', marginTop:10}}>{step+1} / {steps.length}</div>
+      <p className="small muted" style={{textAlign:'center', marginTop:10}}>Mỗi ô Braille có 6 chấm: 1-2-3 bên trái, 4-5-6 bên phải. Chữ A chỉ cần chấm 1 (⠁).</p>
     </Modal>
   );
 }

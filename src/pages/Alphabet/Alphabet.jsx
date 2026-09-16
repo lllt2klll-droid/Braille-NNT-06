@@ -2,6 +2,9 @@ import { useState, useMemo } from 'react';
 import { allEntries } from '../../data/vietnameseBraille.js';
 import Modal from '../../components/Modal/Modal.jsx';
 import BrailleCell from '../../components/BrailleCell/BrailleCell.jsx';
+import BrailleCharacterCard from '../../components/BrailleCharacterCard/BrailleCharacterCard.jsx';
+import { speak } from '../../utils/speak.js';
+import { Link } from 'react-router-dom';
 import './Alphabet.css';
 
 const FILTERS = [
@@ -68,18 +71,14 @@ export default function Alphabet(){
 
       <Modal open={!!selected} onClose={()=> setSelected(null)} title={selected?.label}>
         {selected && (
-          <div style={{textAlign:'center', display:'flex', flexDirection:'column', gap:14, alignItems:'center'}}>
-            <div style={{fontSize:56, fontFamily:'var(--font-braille)'}}>{selected.braille}</div>
-            <BrailleCell dots={selected.dots} size="large" showNumbers />
-            <div style={{fontSize:20, fontWeight:800}}>{selected.character}</div>
-            <div className="badge badge-primary">{selected.type}</div>
-            <div className="muted">Chấm: {selected.dots.length ? selected.dots.join(' - ') : '—'}</div>
-            <div className="small muted">{selected.label}</div>
-            {!selected.verified && <div className="small" style={{color:'var(--color-warning)'}}>⚠ Mapping này chưa được xác minh chính thức — có thể thay đổi.</div>}
+          <div style={{display:'flex', flexDirection:'column', gap:14, alignItems:'center'}}>
+            <BrailleCharacterCard entry={selected} showTry={false} />
             <div style={{display:'flex', gap:8, flexWrap:'wrap', justifyContent:'center'}}>
-              {selected.dots.map(d=> <span key={d} className="badge">Chấm {d}</span>)}
+              <button className="btn btn-ghost btn-sm" onClick={()=> speak(selected.character)}>🔊 Nghe</button>
+              <button className="btn btn-ghost btn-sm" onClick={()=> navigator.clipboard.writeText(selected.braille)}>Sao chép</button>
+              <button className="btn btn-ghost btn-sm" onClick={()=> navigator.clipboard.writeText(selected.character)}>Sao chép chữ</button>
+              <Link to="/practice" className="btn btn-primary btn-sm">Luyện chữ này</Link>
             </div>
-            <button className="btn btn-primary" onClick={()=> navigator.clipboard.writeText(selected.braille)}>Sao chép Braille</button>
           </div>
         )}
       </Modal>
