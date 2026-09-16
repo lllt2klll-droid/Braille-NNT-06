@@ -12,7 +12,7 @@
   touch-action: manipulation;
 }
 .braille-cell--small .braille-grid { gap:8px; padding:12px; }
-.braille-cell--large .braille-grid { gap:16px; padding:20px; }
+.braille-cell--large .braille-grid { gap:14px; padding:18px; }
 
 .braille-dot {
   position: relative;
@@ -22,38 +22,29 @@
   background: #E5E8F0;
   display:grid; place-items:center;
   cursor:pointer;
-  touch-action: none;
+  touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   -webkit-user-select: none;
-  -webkit-touch-callout: none;
   transition: transform 120ms ease-out, background 120ms ease-out, border-color 120ms ease-out, box-shadow 120ms ease-out;
 }
 @media (max-width: 767px) {
-  .braille-dot { width: 52px; height: 52px; }
-  .braille-grid { gap: 14px; }
+  .braille-dot { width: 50px; height: 50px; }
+  .braille-grid { gap: 12px; }
 }
-.braille-grid { touch-action: none; }
-/* tăng vùng chạm ảo để tròn không bị hụt góc */
-.braille-dot::before {
-  content: "";
-  position: absolute;
-  inset: -6px;
-  border-radius: 50%;
-}
-[data-theme="dark"] .braille-dot { background: #2E344A; border-color: var(--color-border); }
 .braille-dot:not(.active) {
   background: rgba(229,232,240,0.1);
   border-color: rgba(231,234,242,0.55);
   box-shadow: none;
 }
+[data-theme="dark"] .braille-dot { background: #2E344A; border-color: var(--color-border); }
 [data-theme="dark"] .braille-dot:not(.active) {
   background: rgba(46,52,74,0.22);
   border-color: rgba(46,52,74,0.35);
 }
 .braille-dot:not(.active) .dot-inner { background: transparent; }
 .braille-dot:not(.active) .dot-number { opacity: 1; color: var(--color-text-secondary); }
-.braille-dot:disabled { cursor: default; }
+.braille-dot:disabled { cursor: default; opacity: 1; }
 .braille-dot.active {
   background: var(--color-primary);
   border-color: var(--color-primary);
