@@ -11,7 +11,7 @@ import Practice from '../pages/Practice/Practice.jsx';
 import Search from '../pages/Search/Search.jsx';
 import Settings from '../pages/Settings/Settings.jsx';
 import Help from '../pages/Help/Help.jsx';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { storage } from '../utils/storage.js';
 import Modal from '../components/Modal/Modal.jsx';
 

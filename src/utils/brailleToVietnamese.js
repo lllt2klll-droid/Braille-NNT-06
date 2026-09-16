@@ -3,7 +3,6 @@
  * Chuyển Braille -> tiếng Việt
  * Logic: Braille tokens -> letters, ghép tone + vowel
  */
-import { normalizeVietnamese } from './normalizeVietnamese.js';
 
 // Inverse maps
 const BRAILLE_TO_BASE = new Map([

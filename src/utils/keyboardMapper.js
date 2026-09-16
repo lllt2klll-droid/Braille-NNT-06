@@ -31,7 +31,7 @@ export function getDotForKey(key, mapping = DEFAULT_KEY_MAP){
 }
 
 export function getKeysForDot(dot, mapping = DEFAULT_KEY_MAP){
-  return Object.entries(mapping).filter(([k,v])=> v===dot).map(([k])=> k);
+  return Object.entries(mapping).filter(([,v])=> v===dot).map(([k])=> k);
 }
 
 export function isBrailleKey(key, mapping = DEFAULT_KEY_MAP){

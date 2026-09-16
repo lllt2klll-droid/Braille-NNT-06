@@ -10,7 +10,7 @@ export function useTheme(){
     const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const effective = theme==='system' ? (sysDark ? 'dark':'light') : theme;
     root.setAttribute('data-theme', effective);
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', effective==='dark' ? '#121E35' : '#2563EB');
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', effective==='dark' ? '#171A25' : '#5B67F1');
   }, [theme]);
 
   useEffect(()=>{

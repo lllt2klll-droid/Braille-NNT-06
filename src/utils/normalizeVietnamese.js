@@ -23,9 +23,8 @@ export function isWhitespace(ch) {
   return /\s/.test(ch);
 }
 
-// Bảng tách dấu tiếng Việt: base vowel + tone
-// Dùng để parse từ thành tokens:  m + huyền + a + n
-const TONE_MARKS = {
+// Bảng tham chiếu tách dấu (giữ để tài liệu, không dùng runtime)
+const _TONE_MARKS = {
   'sắc': ['á','ắ','ấ','é','ế','í','ó','ố','ớ','ú','ứ','ý'],
   'huyền': ['à','ằ','ầ','è','ề','ì','ò','ồ','ờ','ù','ừ','ỳ'],
   'hỏi': ['ả','ẳ','ẩ','ẻ','ể','ỉ','ỏ','ổ','ở','ủ','ử','ỷ'],
@@ -45,10 +44,11 @@ const VIET_CHAR_MAP = new Map();
     VIET_CHAR_MAP.set(c, { base: c, tone: null });
     VIET_CHAR_MAP.set(c.toUpperCase(), { base: c.toUpperCase(), tone: null, isUpper: true });
   }
-  // tone variants
-  const toneMap = {
+  // tone variants (tài liệu)
+  const _toneMap = {
     'sắc': { suffix: 'sắc' }, 'huyền': { suffix: 'huyền' }, 'hỏi': { suffix: 'hỏi' }, 'ngã': { suffix: 'ngã' }, 'nặng': { suffix: 'nặng' }
   };
+  void _toneMap; void _TONE_MARKS;
   // Manual accurate mapping base + tone
   const detailed = [
     // a

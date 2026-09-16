@@ -21,8 +21,8 @@ export default function BrailleCell({ dots=[], size='medium', interactive=false,
               aria-pressed={active}
               aria-label={`Chấm ${p.n}`}
               disabled={!interactive}
-              onClick={()=> onToggle && onToggle(p.n)}
-              onTouchStart={e=> { if(interactive){ e.preventDefault(); onToggle && onToggle(p.n);} }}
+              onClick={()=> { if (onToggle) onToggle(p.n); }}
+              onTouchStart={e=> { if(interactive){ e.preventDefault(); if (onToggle) onToggle(p.n); } }}
             >
               <span className="dot-inner" />
               {showNumbers && <span className="dot-number">{p.n}</span>}

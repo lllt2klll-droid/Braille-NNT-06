@@ -1,10 +1,9 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { routes } from '../../app/routes.js';
 import './Header.css';
 
 export default function Header({ theme, setTheme }){
   const loc = useLocation();
-  const nav = useNavigate();
 
   return (
     <>

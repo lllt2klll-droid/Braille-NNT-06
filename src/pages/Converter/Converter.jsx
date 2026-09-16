@@ -16,9 +16,11 @@ export default function Converter(){
   const [history, setHistory] = useState(()=> storage.get('converterHistory', []));
   const pushHistory = (vi, br)=>{
     const entry = { vi, br, at: Date.now() };
-    const next = [entry, ...history].slice(0,10);
-    setHistory(next);
-    storage.set('converterHistory', next);
+    setHistory(prev=>{
+      const next = [entry, ...prev].slice(0,10);
+      storage.set('converterHistory', next);
+      return next;
+    });
   };
 
   const output = useMemo(()=>{
@@ -26,7 +28,7 @@ export default function Converter(){
     try{
       if(mode==='vi2br') return vietnameseToBraille(input);
       return brailleToVietnamese(input);
-    } catch(e){ return 'Lỗi chuyển đổi'; }
+    } catch{ return 'Lỗi chuyển đổi'; }
   }, [input, mode]);
 
   const stats = useMemo(()=>{

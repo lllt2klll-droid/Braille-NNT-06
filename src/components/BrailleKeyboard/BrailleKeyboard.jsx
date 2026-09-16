@@ -7,7 +7,7 @@ import './BrailleKeyboard.css';
 
 export default function BrailleKeyboard({ onSend, onBrailleChange }){
   const [dots, setDots] = useState([]);
-  const [history, setHistory] = useState(()=> storage.get('kb_history', [])); // array of braille chars
+  const [history, setHistory] = useState(()=> storage.get('kb_history', []));
   const keyMap = storage.get('keyboardMapping', null) || undefined;
 
   const toggle = useCallback((n)=>{
@@ -17,14 +17,41 @@ export default function BrailleKeyboard({ onSend, onBrailleChange }){
 
   const brailleChar = dots.length ? dotsToBraille(dots) : '⠀';
 
-  useEffect(()=>{ onBrailleChange && onBrailleChange(brailleChar, dots); }, [brailleChar, dots, onBrailleChange]);
+  useEffect(()=>{
+    if (onBrailleChange) onBrailleChange(brailleChar, dots);
+  }, [brailleChar, dots, onBrailleChange]);
 
-  // physical keyboard
+  const handleSend = useCallback(()=>{
+    if(dots.length===0) return;
+    const ch = dotsToBraille(dots);
+    const next = [...history, ch];
+    setHistory(next);
+    storage.set('kb_history', next);
+    if (onSend) onSend(ch, dots);
+    setDots([]);
+    if(navigator.vibrate) try{ navigator.vibrate([20,30,20]);}catch{}
+  }, [dots, history, onSend]);
+
+  const handleClearDots = useCallback(()=> setDots([]), []);
+  const handleBackspace = useCallback(()=>{
+    if(dots.length>0) setDots([]);
+    else if(history.length>0){
+      const next = history.slice(0,-1);
+      setHistory(next);
+      storage.set('kb_history', next);
+    }
+  }, [dots, history]);
+  const handleClearAll = useCallback(()=>{
+    setHistory([]);
+    storage.set('kb_history', []);
+    setDots([]);
+  }, []);
+
+  // physical keyboard — đặt sau khi handlers đã định nghĩa
   useEffect(()=>{
     const down = new Set();
     const onKeyDown = (e)=>{
       if(e.repeat) return;
-      // avoid when typing in input
       if(e.target.tagName==='INPUT' || e.target.tagName==='TEXTAREA') return;
       const dot = getDotForKey(e.key, keyMap);
       if(dot){
@@ -51,32 +78,7 @@ export default function BrailleKeyboard({ onSend, onBrailleChange }){
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
     return ()=> { window.removeEventListener('keydown', onKeyDown); window.removeEventListener('keyup', onKeyUp); };
-  }, [keyMap]);
-
-  const handleSend = ()=>{
-    if(dots.length===0) return;
-    const ch = dotsToBraille(dots);
-    const next = [...history, ch];
-    setHistory(next);
-    storage.set('kb_history', next);
-    onSend && onSend(ch, dots);
-    setDots([]);
-    if(navigator.vibrate) try{ navigator.vibrate([20,30,20]);}catch{}
-  };
-  const handleClearDots = ()=> setDots([]);
-  const handleBackspace = ()=>{
-    if(dots.length>0) setDots([]);
-    else if(history.length>0){
-      const next = history.slice(0,-1);
-      setHistory(next);
-      storage.set('kb_history', next);
-    }
-  };
-  const handleClearAll = ()=>{
-    setHistory([]);
-    storage.set('kb_history', []);
-    setDots([]);
-  };
+  }, [keyMap, handleSend, handleBackspace]);
 
   return (
     <div className="bk-root">

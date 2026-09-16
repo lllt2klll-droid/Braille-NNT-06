@@ -22,14 +22,7 @@ const PUNCT_MAP = new Map([
   ['(','⠶'], [')','⠶'], ['"','⠦'], ["'",'⠄'], ['…','⠔⠔⠔'], ['/','⠌'],
 ]);
 
-function mapBaseChar(ch){
-  // ch có thể là chữ hoa/thường đã tách base
-  const lower = ch.toLowerCase();
-  if (LETTER_MAP.has(lower)) return LETTER_MAP.get(lower);
-  // fallback
-  if (PUNCT_MAP.has(ch)) return PUNCT_MAP.get(ch);
-  return null;
-}
+
 
 /**
  * Parse một ký tự tiếng Việt thành tokens Braille

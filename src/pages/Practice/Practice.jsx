@@ -1,8 +1,7 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { allEntries } from '../../data/vietnameseBraille.js';
 import BrailleKeyboard from '../../components/BrailleKeyboard/BrailleKeyboard.jsx';
 import QuizCard from '../../components/QuizCard/QuizCard.jsx';
-import { brailleToVietnamese } from '../../utils/brailleToVietnamese.js';
 import { vietnameseToBraille } from '../../utils/vietnameseToBraille.js';
 import { storage } from '../../utils/storage.js';
 import './Practice.css';
@@ -31,7 +30,6 @@ export default function Practice(){
   }
 
   const handleQuiz = (val)=>{
-    const ok = val===quiz.entry.braille || val===quiz.entry.character;
     // For letter->braille, val is braille; for braille->letter, val is character
     const correct = quiz.isLetterToBraille ? quiz.entry.braille : quiz.entry.character;
     const isOk = val===correct;
